@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, setDoc, getDoc, collection, onSnapshot, query, addDoc, serverTimestamp } from 'firebase/firestore';
-import { Heart, CheckCircle2, Calendar, BookOpen, BarChart3, Clock, Utensils, Dumbbell, ChevronDown, ChevronUp, Info, Activity, Timer, Zap, Play, Square, RotateCcw, AlertTriangle, LifeBuoy, Wind, Waves, Thermometer, Target, Eye, ShieldAlert, Sparkles } from 'lucide-react';
+import { Heart, CheckCircle2, Calendar, BookOpen, BarChart3, Clock, Utensils, Dumbbell, ChevronDown, ChevronUp, Info, Activity, Timer, Zap, Play, Square, RotateCcw, AlertTriangle, LifeBuoy, Wind, Waves, Thermometer, Eye, ShieldAlert, Sparkles } from 'lucide-react';
 
 // Configuration
 const firebaseConfig = {
@@ -41,25 +41,25 @@ const PROTOCOL = {
     schedaA: {
       title: 'scheda a: lower body e power',
       exercises: [
-        { name: 'Goblet squat con kettlebell', volume: '3 serie x 10 ripetizioni', rest: 90, intensity: 'Media: l\'ultima ripetizione deve essere faticosa ma pulita.', img: 'goblet squat.jpg', exec: 'Tieni la kettlebell al petto e scendi profonda: i gomiti devono toccare l\'interno coscia per garantire la profondità. Mantieni il petto alto.', rationale: 'Lavora tutto: gambe, glutei e addome per stare dritta.', errors: 'Attenzione agli errori: non sollevare i talloni e non far cedere le ginocchia verso l\'interno.' },
-        { name: 'Stacchi rumeni con bilanciere', volume: '3 serie x 8 ripetizioni', rest: 90, intensity: 'Medio-alta: focus sulla tensione muscolare.', img: 'stacchi rumeni.jpg', exec: 'Gambe semitese e scendi col bilanciere sfiorando le cosce fino a metà stinco.', rationale: 'Miglior esercizio per glutei e femorali: costruisce la catena posteriore.', errors: 'Attenzione agli errori: non curvare la schiena e non allontanare il bilanciere dalle gambe.' },
-        { name: 'Affondi indietro con manubri', volume: '2 serie x 10 passi per gamba', rest: 60, intensity: 'Costante: non fare pause tra i passi.', img: 'affondi.jpeg', exec: 'Fai un passo indietro e tocca terra col ginocchio leggermente.', rationale: 'Migliora l\'equilibrio e colpisce il gluteo in allungamento.', errors: 'Attenzione agli errori: non far tremare la caviglia e non sbattere il ginocchio a terra.' },
-        { name: 'Plank sui gomiti', volume: '3 serie x 30-45 secondi', rest: 45, intensity: 'Massima contrazione addominale.', img: 'plank.jpg', exec: 'Mantieni il corpo dritto come una tavola: sposta il peso sui gomiti.', rationale: 'Rinforza il core e la stabilità complessiva.', errors: 'Attenzione agli errori: non alzare troppo il sedere e non far cedere la zona lombare.' }
+        { name: 'Goblet squat con kettlebell', volume: '3 serie x 10 ripetizioni', rest: 90, intensity: 'Media: l\'ultima ripetizione deve essere faticosa ma pulita.', img: '/images/goblet squat.jpg', exec: 'Tieni la kettlebell al petto e scendi profonda: i gomiti devono toccare l\'interno coscia per garantire la profondità. Mantieni il petto alto.', rationale: 'Lavora tutto: gambe, glutei e addome per stare dritta.', errors: 'Attenzione agli errori: non sollevare i talloni e non far cedere le ginocchia verso l\'interno.' },
+        { name: 'Stacchi rumeni con bilanciere', volume: '3 serie x 8 ripetizioni', rest: 90, intensity: 'Medio-alta: focus sulla tensione muscolare.', img: '/images/stacchi rumeni.jpg', exec: 'Gambe semitese e scendi col bilanciere sfiorando le cosce fino a metà stinco.', rationale: 'Miglior esercizio per glutei e femorali: costruisce la catena posteriore.', errors: 'Attenzione agli errori: non curvare la schiena e non allontanare il bilanciere dalle gambe.' },
+        { name: 'Affondi indietro con manubri', volume: '2 serie x 10 passi per gamba', rest: 60, intensity: 'Costante: non fare pause tra i passi.', img: '/images/affondi.jpeg', exec: 'Fai un passo indietro e tocca terra col ginocchio leggermente.', rationale: 'Migliora l\'equilibrio e colpisce il gluteo in allungamento.', errors: 'Attenzione agli errori: non far tremare la caviglia e non sbattere il ginocchio a terra.' },
+        { name: 'Plank sui gomiti', volume: '3 serie x 30-45 secondi', rest: 45, intensity: 'Massima contrazione addominale.', img: '/images/plank.jpg', exec: 'Mantieni il corpo dritto come una tavola: sposta il peso sui gomiti.', rationale: 'Rinforza il core e la stabilità complessiva.', errors: 'Attenzione agli errori: non alzare troppo il sedere e non far cedere la zona lombare.' }
       ]
     },
     schedaB: {
       title: 'scheda b: upper body e posture',
       exercises: [
-        { name: 'Military press', volume: '3 serie x 8-10 ripetizioni', rest: 90, intensity: 'Esplosiva in salita, controllata in discesa.', img: 'Military-press-1.jpg', exec: 'Spingi il peso sopra la testa partendo dalle spalle.', rationale: 'Scolpisce le spalle e obbliga il core a lavorare tantissimo.', errors: 'Attenzione agli errori: non inarcare eccessivamente la schiena durante la spinta.' },
-        { name: 'Rematore con kettlebell', volume: '3 serie x 10 per braccio', rest: 60, intensity: 'Focus sul "tirare" con il gomito.', img: 'gorilla row.jpeg', exec: 'Busto flesso avanti a 45 gradi: tira la kettlebell verso l\'anca.', rationale: 'Contrasta la postura chiusa e lavora i dorsali.', errors: 'Attenzione agli errori: non ruotare le spalle e non sollevare il busto.' },
-        { name: 'Distensioni su panca', volume: '3 serie x 10 ripetizioni', rest: 90, intensity: 'Controllata.', img: 'panca piana.jpg', exec: 'Usa bilanciere o manubri spingendo dal petto.', rationale: 'Tonifica pettorali e tricipiti.', errors: 'Attenzione agli errori: non far rimbalzare il peso sul petto.' },
-        { name: 'Barra trazioni (dead hang)', volume: '3 serie x max tempo', rest: 60, intensity: 'Resistenza pura.', img: 'trazioni.jpg', exec: 'Appenditi alla barra e lasciati penzolare con le braccia tese.', rationale: 'Decomprime la colonna vertebrale e rinforza la presa.', errors: 'Attenzione agli errori: non incassare il collo tra le spalle.' }
+        { name: 'Military press', volume: '3 serie x 8-10 ripetizioni', rest: 90, intensity: 'Esplosiva in salita, controllata in discesa.', img: '/images/Military-press-.jpeg', exec: 'Spingi il peso sopra la testa partendo dalle spalle.', rationale: 'Scolpisce le spalle e obbliga il core a lavorare tantissimo.', errors: 'Attenzione agli errori: non inarcare eccessivamente la schiena durante la spinta.' },
+        { name: 'Rematore con kettlebell', volume: '3 serie x 10 per braccio', rest: 60, intensity: 'Focus sul "tirare" con il gomito.', img: '/images/gorilla row.jpeg', exec: 'Busto flesso avanti a 45 gradi: tira la kettlebell verso l\'anca.', rationale: 'Contrasta la postura chiusa e lavora i dorsali.', errors: 'Attenzione agli errori: non ruotare le spalle e non sollevare il busto.' },
+        { name: 'Distensioni su panca', volume: '3 serie x 10 ripetizioni', rest: 90, intensity: 'Controllata.', img: '/images/panca piana.jpg', exec: 'Usa bilanciere o manubri spingendo dal petto.', rationale: 'Tonifica pettorali e tricipiti.', errors: 'Attenzione agli errori: non far rimbalzare il peso sul petto.' },
+        { name: 'Barra trazioni (dead hang)', volume: '3 serie x max tempo', rest: 60, intensity: 'Resistenza pura.', img: '/images/trazioni.jpg', exec: 'Appenditi alla barra e lasciati penzolare con le braccia tese.', rationale: 'Decomprime la colonna vertebrale e rinforza la presa.', errors: 'Attenzione agli errori: non incassare il collo tra le spalle.' }
       ]
     },
     rucking: {
       title: 'rucking collinare',
       exercises: [
-        { name: 'Camminata con carico', volume: '40-50 minuti', rest: 0, intensity: 'Passo svelto.', img: 'Screenshot 2025-12-25 alle 18.01.20.jpg', exec: 'Metti 5-6 kg nello zaino e cammina in collina.', rationale: 'Brucia 3x calorie della camminata.', errors: 'Attenzione agli errori: non piegare troppo il busto in avanti.' }
+        { name: 'Camminata con carico', volume: '40-50 minuti', rest: 0, intensity: 'Passo svelto.', img: '/images/rucking.jpg', exec: 'Metti 5-6 kg nello zaino e cammina in collina.', rationale: 'Brucia 3x calorie della camminata.', errors: 'Attenzione agli errori: non piegare troppo il busto in avanti.' }
       ]
     }
   },
@@ -187,16 +187,26 @@ const App = () => {
     e.stopPropagation();
     if (!user) return;
     const newStatus = { ...dailyStatus, [taskId]: !dailyStatus[taskId] };
+    setDailyStatus(newStatus); // Aggiorna immediatamente lo stato locale
     const progressDoc = doc(db, 'artifacts', appId, 'users', user.uid, 'progress', todayKey);
-    await setDoc(progressDoc, { completed: newStatus, focus: focusStatus }, { merge: true });
+    try {
+      await setDoc(progressDoc, { completed: newStatus, focus: focusStatus }, { merge: true });
+    } catch (error) {
+      console.error("Errore salvataggio:", error);
+    }
   };
 
   const toggleFocus = async (e, taskId) => {
     e.stopPropagation();
     if (!user) return;
-    const newFocus = { ...focusStatus, [taskId]: !focusStatus[taskId] };
+    const newStatus = { ...dailyStatus, [taskId]: !dailyStatus[taskId] };
+    setDailyStatus(newStatus); // Aggiorna immediatamente lo stato locale
     const progressDoc = doc(db, 'artifacts', appId, 'users', user.uid, 'progress', todayKey);
-    await setDoc(progressDoc, { focus: newFocus, completed: dailyStatus }, { merge: true });
+    try {
+      await setDoc(progressDoc, { completed: newStatus, focus: focusStatus }, { merge: true });
+    } catch (error) {
+      console.error("Errore salvataggio:", error);
+    }
   };
 
   const addDiaryEntry = async (e) => {
@@ -232,14 +242,14 @@ const App = () => {
 
             <div className="space-y-3">
               {PROTOCOL.dailyActions.map((action) => (
-                <div key={action.id} className={`bg-white rounded-[2rem] border transition-all duration-300 ${focusStatus[action.id] ? 'bg-[#FDF5E6] border-[#F5E6CC] shadow-inner' : (expandedId === action.id ? 'border-[#B2AC88] shadow-md' : 'border-black/5')}`}>
+                <div key={action.id} className={`bg-white rounded-[2rem] border transition-all duration-300 ${expandedId === action.id ? 'border-[#B2AC88] shadow-md' : 'border-black/5'}`}>
                   <div onClick={() => setExpandedId(expandedId === action.id ? null : action.id)} className="p-4 flex items-center gap-3 cursor-pointer">
                     <button onClick={(e) => toggleTask(e, action.id)} className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 transition-all ${dailyStatus[action.id] ? 'bg-[#9CB4B4] text-white' : 'bg-[#F0F4F2] text-slate-300'}`}><CheckCircle2 className="w-6 h-6" /></button>
                     <div className="flex-1">
                       <span className="text-[9px] font-black uppercase tracking-[0.15em] text-[#B2AC88]">{action.time}</span>
                       <h3 className={`font-bold text-sm tracking-tight ${dailyStatus[action.id] ? 'text-[#5C6B73] opacity-50 line-through' : 'text-slate-700'}`}>{action.task}</h3>
                     </div>
-                    <button onClick={(e) => toggleFocus(e, action.id)} className={`p-2 rounded-xl transition-all ${focusStatus[action.id] ? 'bg-[#F5E6CC] text-[#8B7355]' : 'text-slate-200 hover:text-[#B2AC88]'}`}><Target className="w-5 h-5" /></button>
+                    <button onClick={(e) => toggleFocus(e, action.id)} className={`p-2 rounded-xl transition-all ${dailyStatus[action.id] ? 'bg-[#9CB4B4] text-white' : 'text-slate-200 hover:text-[#9CB4B4]'}`}><CheckCircle2 className="w-5 h-5" /></button>
                   </div>
                   {expandedId === action.id && (
                     <div className="px-5 pb-5 animate-in slide-in-from-top-2 duration-200">
@@ -300,16 +310,16 @@ const App = () => {
                     const exId = `${key}-${idx}`;
                     const isExpanded = expandedWorkoutId === exId;
                     return (
-                      <div key={idx} className={`bg-white rounded-[2rem] border transition-all duration-500 ${focusStatus[exId] ? 'bg-[#FDF5E6] border-[#F5E6CC] shadow-inner' : (isExpanded ? 'border-[#E29587] shadow-xl translate-y-[-2px]' : 'border-black/5')}`}>
+                      <div key={idx} className={`bg-white rounded-[2rem] border transition-all duration-500 ${isExpanded ? 'border-[#E29587] shadow-xl translate-y-[-2px]' : 'border-black/5'}`}>
                         <div onClick={() => setExpandedWorkoutId(isExpanded ? null : exId)} className="p-4 flex items-center justify-between cursor-pointer">
                           <div className="flex-1 px-2">
-                            <h3 className="font-black text-[#4A4A4A] text-sm tracking-tight">{ex.name}</h3>
+                            <h3 className={`font-black text-sm tracking-tight ${dailyStatus[exId] ? 'text-[#5C6B73] opacity-50 line-through' : 'text-[#4A4A4A]'}`}>{ex.name}</h3>
                             <div className="flex gap-2 mt-2">
                               <span className="text-[9px] bg-[#FAEBE8] text-[#E29587] px-3 py-1 rounded-full font-black uppercase tracking-wider">{ex.volume}</span>
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
-                            <button onClick={(e) => toggleFocus(e, exId)} className={`p-2 rounded-xl transition-all ${focusStatus[exId] ? 'bg-[#F5E6CC] text-[#8B7355]' : 'text-slate-200 hover:text-[#B2AC88]'}`}><Target className="w-5 h-5" /></button>
+                            <button onClick={(e) => toggleFocus(e, exId)} className={`p-2 rounded-xl transition-all ${dailyStatus[exId] ? 'bg-[#9CB4B4] text-white' : 'text-slate-200 hover:text-[#9CB4B4]'}`}><CheckCircle2 className="w-5 h-5" /></button>
                             {isExpanded ? <ChevronUp className="w-5 h-5 text-[#E29587]" /> : <ChevronDown className="w-5 h-5 text-slate-300" />}
                           </div>
                         </div>
@@ -363,23 +373,25 @@ const App = () => {
         )}
       </main>
 
-      {/* Sempre fixed, centrato rispetto alla colonna */}
-      <nav className="flex justify-around p-3 max-w-md mx-auto bg-white/95 backdrop-blur-xl border-t border-black/5 rounded-t-2xl">
-        {[
-          { id: 'oggi', icon: CheckCircle2, label: 'oggi' },
-          { id: 'allenamento', icon: Dumbbell, label: 'gym' },
-          { id: 'sos', icon: LifeBuoy, label: 'sos' },
-          { id: 'diario', icon: BookOpen, label: 'diario' }
-        ].map((tab) => {
-          const NavIcon = tab.icon;
-          const isSos = tab.id === 'sos';
-          return (
-            <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex flex-col items-center gap-1.5 px-6 py-2 rounded-[1.5rem] transition-all duration-500 ${activeTab === tab.id ? (isSos ? 'bg-[#FAEBE8] text-[#E29587] scale-105 font-black shadow-inner' : 'bg-[#F0F4F2] text-[#5C6B73] scale-105 font-black shadow-inner') : 'text-slate-300 font-medium'}`}>
-              <NavIcon className={`w-6 h-6 ${isSos && activeTab === 'sos' ? 'text-[#E29587]' : ''}`} />
-              <span className="text-[9px] font-black uppercase tracking-tighter">{tab.label}</span>
-            </button>
-          );
-        })}
+      {/* Menu di navigazione fisso in basso */}
+      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 max-w-md w-full bg-white/95 backdrop-blur-xl border-t border-black/5 shadow-lg z-30">
+        <div className="flex justify-around items-center p-4 gap-2">
+          {[
+            { id: 'oggi', icon: CheckCircle2, label: 'oggi' },
+            { id: 'allenamento', icon: Dumbbell, label: 'gym' },
+            { id: 'sos', icon: LifeBuoy, label: 'sos' },
+            { id: 'diario', icon: BookOpen, label: 'diario' }
+          ].map((tab) => {
+            const NavIcon = tab.icon;
+            const isSos = tab.id === 'sos';
+            return (
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex flex-col items-center gap-1.5 flex-1 py-3 rounded-[1.5rem] transition-all duration-500 ${activeTab === tab.id ? (isSos ? 'bg-[#FAEBE8] text-[#E29587] scale-105 font-black shadow-lg' : 'bg-[#F0F4F2] text-[#5C6B73] scale-105 font-black shadow-lg') : 'text-slate-300 font-medium hover:text-slate-500'}`}>
+                <NavIcon className={`w-6 h-6 ${isSos && activeTab === 'sos' ? 'text-[#E29587]' : ''}`} />
+                <span className="text-[9px] font-black uppercase tracking-tighter">{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
       </nav>
     </div>
   );
