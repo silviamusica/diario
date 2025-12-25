@@ -93,7 +93,7 @@ const playTibetanBowl = () => {
   osc1.stop(ctx.currentTime + 6); osc2.stop(ctx.currentTime + 6);
 };
 
-const RestTimer = ({ initialSeconds, colorClass = "bg-[#F5E6D3]", accentColor = "text-[#C97C5D]" }) => {
+const RestTimer = ({ initialSeconds, colorClass = "bg-[#FFE8D6]", accentColor = "text-[#D97555]" }) => {
   const [timeLeft, setTimeLeft] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const timerRef = useRef(null);
@@ -110,19 +110,19 @@ const RestTimer = ({ initialSeconds, colorClass = "bg-[#F5E6D3]", accentColor = 
   }, [isActive, timeLeft]);
 
   return (
-    <div className={`p-4 rounded-3xl mt-4 border border-[#E8CFAB]/50 ${colorClass} shadow-sm`}>
+    <div className={`p-4 rounded-3xl mt-4 border border-[#E8D5B7]/60 ${colorClass} shadow-sm`}>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <Timer className={`w-5 h-5 ${isActive ? 'animate-pulse text-[#C97C5D]' : 'text-[#A0755B]'}`} />
-          <span className="text-[10px] font-black uppercase tracking-widest text-[#6B4423]">Timer attivo</span>
+          <Timer className={`w-5 h-5 ${isActive ? 'animate-pulse text-[#D97555]' : 'text-[#B8925A]'}`} />
+          <span className="text-[10px] font-black uppercase tracking-widest text-[#5C3D2E]">Timer attivo</span>
         </div>
         <div className={`text-3xl font-mono font-black ${accentColor}`}>
           {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
         </div>
       </div>
       <div className="flex gap-2">
-        <button onClick={() => { setTimeLeft(initialSeconds); setIsActive(true); }} className="flex-1 py-3 bg-[#FEFCF8]/60 hover:bg-[#FEFCF8] text-[#6B4423] rounded-2xl font-bold border border-[#E8CFAB]/50 transition-all text-sm uppercase">Avvia {initialSeconds < 60 ? initialSeconds + 's' : Math.floor(initialSeconds/60) + 'm'}</button>
-        <button onClick={() => { setIsActive(false); setTimeLeft(0); }} className="px-4 py-3 bg-[#FEFCF8]/40 rounded-2xl"><RotateCcw className="w-5 h-5 text-[#A0755B]" /></button>
+        <button onClick={() => { setTimeLeft(initialSeconds); setIsActive(true); }} className="flex-1 py-3 bg-white/60 hover:bg-white text-[#5C3D2E] rounded-2xl font-bold border border-[#E8D5B7]/60 transition-all text-sm uppercase">Avvia {initialSeconds < 60 ? initialSeconds + 's' : Math.floor(initialSeconds/60) + 'm'}</button>
+        <button onClick={() => { setIsActive(false); setTimeLeft(0); }} className="px-4 py-3 bg-white/40 rounded-2xl"><RotateCcw className="w-5 h-5 text-[#B8925A]" /></button>
       </div>
     </div>
   );
@@ -220,46 +220,45 @@ const App = () => {
     setNewEntry('');
   };
 
-  if (loading) return <div className="flex items-center justify-center min-h-screen bg-[#F5EBE0] font-sans text-[#C97C5D] animate-pulse text-xl font-bold italic uppercase tracking-widest">MuovitAzione...</div>;
+  if (loading) return <div className="flex items-center justify-center min-h-screen bg-[#F0E6D2] font-sans text-[#D97555] animate-pulse text-xl font-bold italic uppercase tracking-widest">MuovitAzione...</div>;
 
   return (
-    <div className="relative max-w-md mx-auto min-h-screen bg-[#F5EBE0] flex flex-col font-sans text-[#3D3D3D] pb-24 border-x border-[#D4A373]/20">
-      <header className="bg-gradient-to-b from-[#E8CFAB] to-[#F5DFB8] border-b border-[#D4A373]/30 p-8 sticky top-0 z-20 shadow-lg text-center">
-        <h1 className="text-3xl font-black text-[#6B4423] flex items-center justify-center gap-2 tracking-tighter drop-shadow-sm">
-          <Heart className="w-7 h-7 fill-[#C97C5D] text-[#C97C5D] animate-pulse" />
+    <div className="relative max-w-md mx-auto min-h-screen bg-[#F0E6D2] flex flex-col font-sans text-[#2D2D2D] pb-24 border-x border-[#D4A373]/30">
+      <header className="bg-gradient-to-b from-[#E8D5B7] to-[#F5E0C3] border-b border-[#C9A961]/40 py-4 shadow-md text-center">
+        <h1 className="text-2xl font-black text-[#5C3D2E] flex items-center justify-center gap-2 tracking-tight">
+          <Heart className="w-6 h-6 fill-[#D64545] text-[#D64545] animate-pulse" />
           MuovitAzione
         </h1>
-        <p className="text-[10px] text-[#A0755B] mt-2 uppercase tracking-[0.2em] font-black">Il tuo protocollo vintage 2.0</p>
       </header>
 
       <main className="flex-1 p-5 space-y-6 overflow-x-hidden">
         {activeTab === 'oggi' && (
           <section className="space-y-4 animate-in fade-in duration-700">
-            <div className="bg-gradient-to-br from-[#B4A284] to-[#A89168] p-6 rounded-[2.5rem] shadow-md border border-[#D4A373]/40 relative overflow-hidden">
+            <div className="bg-gradient-to-br from-[#C19A6B] to-[#B8925A] p-6 rounded-[2.5rem] shadow-lg border border-[#D4A373]/50 relative overflow-hidden">
               <h2 className="font-black text-lg flex items-center gap-3 text-white uppercase tracking-tight drop-shadow">
-                <Calendar className="w-5 h-5 text-[#F5EBE0]" />
+                <Calendar className="w-5 h-5 text-[#FFF8F0]" />
                 Oggi: {currentProgram.type}
               </h2>
-              <p className="text-[#F5EBE0]/90 text-sm mt-2 font-medium italic">{currentProgram.task}</p>
+              <p className="text-[#FFF8F0]/95 text-sm mt-2 font-medium italic">{currentProgram.task}</p>
             </div>
 
             <div className="space-y-3">
               {PROTOCOL.dailyActions.map((action) => (
-                <div key={action.id} className={`rounded-[2rem] border transition-all duration-300 ${focusStatus[action.id] ? 'bg-[#D4A373]/30 border-[#D4A373] shadow-xl' : (expandedId === action.id ? 'bg-[#FEFCF8] border-[#C97C5D] shadow-md' : 'bg-[#FEFCF8] border-[#E8CFAB]/50')}`}>
+                <div key={action.id} className={`rounded-[2rem] border transition-all duration-300 ${focusStatus[action.id] ? 'bg-[#E8D5A0]/40 border-[#C9A961] shadow-xl' : (expandedId === action.id ? 'bg-white border-[#D97555] shadow-md' : 'bg-white border-[#E8D5B7]/60')}`}>
                   <div onClick={() => setExpandedId(expandedId === action.id ? null : action.id)} className="p-4 flex items-center gap-3 cursor-pointer">
                     <div className="flex-1">
-                      <span className="text-[9px] font-black uppercase tracking-[0.15em] text-[#A0755B]">{action.time}</span>
-                      <h3 className={`font-bold text-sm tracking-tight ${dailyStatus[action.id] ? 'text-[#6B4423] opacity-50 line-through' : 'text-[#3D3D3D]'}`}>{action.task}</h3>
+                      <span className="text-[9px] font-black uppercase tracking-[0.15em] text-[#B8925A]">{action.time}</span>
+                      <h3 className={`font-bold text-sm tracking-tight ${dailyStatus[action.id] ? 'text-[#5C3D2E] opacity-50 line-through' : 'text-[#2D2D2D]'}`}>{action.task}</h3>
                     </div>
-                    <button onClick={(e) => toggleFocus(e, action.id)} className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-all ${focusStatus[action.id] ? 'bg-[#D4A373] text-white shadow-lg' : 'bg-[#F5EBE0] text-[#A0755B] hover:bg-[#E8CFAB] hover:text-[#6B4423]'}`}>
+                    <button onClick={(e) => toggleFocus(e, action.id)} className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-all ${focusStatus[action.id] ? 'bg-[#C9A961] text-white shadow-lg' : 'bg-[#F5E8D4] text-[#B8925A] hover:bg-[#E8D5B7] hover:text-[#5C3D2E]'}`}>
                       <Target className="w-7 h-7" />
                     </button>
                   </div>
                   {expandedId === action.id && (
                     <div className="px-5 pb-5 animate-in slide-in-from-top-2 duration-200">
-                      <p className="text-sm text-[#5D4E37] leading-relaxed mb-4 border-t border-[#E8CFAB]/30 pt-4 font-medium">{action.detail}</p>
-                      <div className="bg-[#FFF8E7] p-4 rounded-2xl border border-[#E8CFAB] text-[13px] text-[#6B4423] italic leading-relaxed shadow-inner">
-                        <span className="font-black uppercase not-italic text-[10px] block mb-1 tracking-wider text-[#A0755B]">Perché funziona:</span>
+                      <p className="text-sm text-[#5C3D2E] leading-relaxed mb-4 border-t border-[#E8D5B7]/40 pt-4 font-medium">{action.detail}</p>
+                      <div className="bg-[#FFF9E6] p-4 rounded-2xl border border-[#F5E8CC] text-[13px] text-[#5C3D2E] italic leading-relaxed shadow-inner">
+                        <span className="font-black uppercase not-italic text-[10px] block mb-1 tracking-wider text-[#B8925A]">Perché funziona:</span>
                         {action.rationale}
                       </div>
                     </div>
@@ -272,29 +271,29 @@ const App = () => {
 
         {activeTab === 'sos' && (
           <section className="space-y-4 animate-in slide-in-from-bottom-6 duration-700">
-            <div className="bg-gradient-to-br from-[#C97C5D] to-[#B56947] p-8 rounded-[3rem] shadow-xl border-b-8 border-[#A0523D]">
+            <div className="bg-gradient-to-br from-[#D97555] to-[#C86648] p-8 rounded-[3rem] shadow-xl border-b-8 border-[#B55538]">
               <h2 className="text-2xl font-black flex items-center gap-3 text-white uppercase italic tracking-tighter drop-shadow-md"><LifeBuoy className="w-7 h-7" /> Sos: rifugio</h2>
-              <p className="text-[#FFF8F0] text-sm mt-3 font-medium leading-relaxed">Momento di tempesta? Questi sono i tuoi strumenti salvavita.</p>
+              <p className="text-white/95 text-sm mt-3 font-medium leading-relaxed">Momento di tempesta? Questi sono i tuoi strumenti salvavita.</p>
             </div>
             <div className="space-y-3 pt-2">
               {PROTOCOL.sosMethods.map((method) => {
                 const IconComponent = method.icon;
                 return (
-                  <div key={method.id} className={`bg-[#FEFCF8] rounded-[2.2rem] border-2 transition-all duration-500 ${expandedSosId === method.id ? 'border-[#C97C5D] shadow-lg scale-[1.02]' : 'border-[#E8CFAB]/50'}`}>
+                  <div key={method.id} className={`bg-white rounded-[2.2rem] border-2 transition-all duration-500 ${expandedSosId === method.id ? 'border-[#D97555] shadow-lg scale-[1.02]' : 'border-[#E8D5B7]/60'}`}>
                     <div onClick={() => setExpandedSosId(expandedSosId === method.id ? null : method.id)} className="p-5 flex items-center gap-5 cursor-pointer">
-                      <div className={`p-4 rounded-3xl transition-colors ${expandedSosId === method.id ? 'bg-[#C97C5D] text-white' : 'bg-[#F5E6D3] text-[#C97C5D]'}`}><IconComponent className="w-7 h-7" /></div>
-                      <h3 className="flex-1 font-black text-[#6B4423] text-sm uppercase tracking-tight leading-tight">{method.title}</h3>
-                      {expandedSosId === method.id ? <ChevronUp className="text-[#C97C5D]" /> : <ChevronDown className="text-[#D4A373]" />}
+                      <div className={`p-4 rounded-3xl transition-colors ${expandedSosId === method.id ? 'bg-[#D97555] text-white' : 'bg-[#FFE8D6] text-[#D97555]'}`}><IconComponent className="w-7 h-7" /></div>
+                      <h3 className="flex-1 font-black text-[#5C3D2E] text-sm uppercase tracking-tight leading-tight">{method.title}</h3>
+                      {expandedSosId === method.id ? <ChevronUp className="text-[#D97555]" /> : <ChevronDown className="text-[#C9A961]" />}
                     </div>
                     {expandedSosId === method.id && (
                       <div className="px-6 pb-8 animate-in fade-in duration-500">
-                        <div className="h-px bg-[#E8CFAB] mb-5" />
-                        <p className="text-[#5D4E37] text-[15px] leading-relaxed font-medium mb-5 italic">"{method.detail}"</p>
-                        <div className="bg-[#FFF8E7] p-5 rounded-3xl border border-[#E8CFAB] text-xs text-[#6B4423] leading-relaxed shadow-inner">
-                          <span className="font-black uppercase block mb-2 tracking-widest text-[9px] text-[#C97C5D]">Protocollo scientifico:</span>
+                        <div className="h-px bg-[#F5E8CC] mb-5" />
+                        <p className="text-[#5C3D2E] text-[15px] leading-relaxed font-medium mb-5 italic">"{method.detail}"</p>
+                        <div className="bg-[#FFF9E6] p-5 rounded-3xl border border-[#F5E8CC] text-xs text-[#5C3D2E] leading-relaxed shadow-inner">
+                          <span className="font-black uppercase block mb-2 tracking-widest text-[9px] text-[#D97555]">Protocollo scientifico:</span>
                           {method.rationale}
                         </div>
-                        {method.timer > 0 && <RestTimer initialSeconds={method.timer} colorClass="bg-[#F5E6D3]" accentColor="text-[#C97C5D]" />}
+                        {method.timer > 0 && <RestTimer initialSeconds={method.timer} colorClass="bg-[#FFE8D6]" accentColor="text-[#D97555]" />}
                       </div>
                     )}
                   </div>
@@ -308,40 +307,40 @@ const App = () => {
           <section className="space-y-8 animate-in fade-in duration-700">
             {Object.entries(PROTOCOL.workouts).map(([key, workout]) => (
               <div key={key} className="space-y-4">
-                <h2 className="text-lg font-black text-[#6B4423] px-1 border-l-[6px] border-[#C97C5D] pl-4 uppercase tracking-widest">{workout.title}</h2>
+                <h2 className="text-lg font-black text-[#5C3D2E] px-1 border-l-[6px] border-[#D97555] pl-4 uppercase tracking-widest">{workout.title}</h2>
                 <div className="space-y-3">
                   {workout.exercises.map((ex, idx) => {
                     const exId = `${key}-${idx}`;
                     const isExpanded = expandedWorkoutId === exId;
                     return (
-                      <div key={idx} className={`rounded-[2rem] border transition-all duration-500 ${focusStatus[exId] ? 'bg-[#D4A373]/25 border-[#D4A373] shadow-lg' : (isExpanded ? 'bg-[#FEFCF8] border-[#C97C5D] shadow-xl translate-y-[-2px]' : 'bg-[#FEFCF8] border-[#E8CFAB]/50')}`}>
+                      <div key={idx} className={`rounded-[2rem] border transition-all duration-500 ${focusStatus[exId] ? 'bg-[#E8D5A0]/30 border-[#C9A961] shadow-lg' : (isExpanded ? 'bg-white border-[#D97555] shadow-xl translate-y-[-2px]' : 'bg-white border-[#E8D5B7]/60')}`}>
                         <div onClick={() => setExpandedWorkoutId(isExpanded ? null : exId)} className="p-4 flex items-center justify-between cursor-pointer">
                           <div className="flex-1 px-2">
-                            <h3 className={`font-black text-sm tracking-tight ${dailyStatus[exId] ? 'text-[#6B4423] opacity-50 line-through' : 'text-[#3D3D3D]'}`}>{ex.name}</h3>
+                            <h3 className={`font-black text-sm tracking-tight ${dailyStatus[exId] ? 'text-[#5C3D2E] opacity-50 line-through' : 'text-[#2D2D2D]'}`}>{ex.name}</h3>
                             <div className="flex gap-2 mt-2">
-                              <span className="text-[9px] bg-[#F5E6D3] text-[#C97C5D] px-3 py-1 rounded-full font-black uppercase tracking-wider">{ex.volume}</span>
-                              {dailyStatus[exId] && <span className="text-[9px] bg-[#B4A284] text-white px-3 py-1 rounded-full font-black uppercase tracking-wider">✓ Completato</span>}
+                              <span className="text-[9px] bg-[#FFE8D6] text-[#D97555] px-3 py-1 rounded-full font-black uppercase tracking-wider">{ex.volume}</span>
+                              {dailyStatus[exId] && <span className="text-[9px] bg-[#C19A6B] text-white px-3 py-1 rounded-full font-black uppercase tracking-wider">✓ Completato</span>}
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
-                            <button onClick={(e) => toggleTask(e, exId)} className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${dailyStatus[exId] ? 'bg-[#B4A284] text-white' : 'bg-[#F5EBE0] text-[#A0755B] hover:bg-[#B4A284]/30'}`}><CheckCircle2 className="w-5 h-5" /></button>
-                            <button onClick={(e) => toggleFocus(e, exId)} className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${focusStatus[exId] ? 'bg-[#D4A373] text-white' : 'bg-[#F5EBE0] text-[#A0755B] hover:bg-[#D4A373]/30 hover:text-[#6B4423]'}`}><Target className="w-5 h-5" /></button>
-                            {isExpanded ? <ChevronUp className="w-5 h-5 text-[#C97C5D]" /> : <ChevronDown className="w-5 h-5 text-[#D4A373]" />}
+                            <button onClick={(e) => toggleTask(e, exId)} className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${dailyStatus[exId] ? 'bg-[#C19A6B] text-white' : 'bg-[#F5E8D4] text-[#B8925A] hover:bg-[#C19A6B]/30'}`}><CheckCircle2 className="w-5 h-5" /></button>
+                            <button onClick={(e) => toggleFocus(e, exId)} className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${focusStatus[exId] ? 'bg-[#C9A961] text-white' : 'bg-[#F5E8D4] text-[#B8925A] hover:bg-[#C9A961]/30 hover:text-[#5C3D2E]'}`}><Target className="w-5 h-5" /></button>
+                            {isExpanded ? <ChevronUp className="w-5 h-5 text-[#D97555]" /> : <ChevronDown className="w-5 h-5 text-[#C9A961]" />}
                           </div>
                         </div>
                         {isExpanded && (
                           <div className="px-5 pb-6 animate-in slide-in-from-top-3 duration-500">
-                            <div className="rounded-[2rem] overflow-hidden mb-5 bg-[#F5EBE0] border border-[#E8CFAB]/50 shadow-inner">
+                            <div className="rounded-[2rem] overflow-hidden mb-5 bg-[#F5E8D4] border border-[#E8D5B7]/60 shadow-inner">
                               <img src={ex.img} alt={ex.name} className="w-full h-64 object-cover" onError={(e) => { e.target.src = 'https://placehold.co/600x400?text=' + ex.name.replace(/\s/g, '+'); }} />
                             </div>
                             <div className="space-y-5">
                               <div className="grid grid-cols-2 gap-3">
-                                <div className="bg-[#F5EBE0] p-4 rounded-[1.5rem] border border-[#E8CFAB]/50"><p className="text-[9px] font-black text-[#A0755B] uppercase tracking-widest mb-1">Recupero:</p><p className="font-black text-[#C97C5D] text-lg">{ex.rest}s</p></div>
-                                <div className="bg-[#F5EBE0] p-4 rounded-[1.5rem] border border-[#E8CFAB]/50"><p className="text-[9px] font-black text-[#A0755B] uppercase tracking-widest mb-1">Intensità:</p><p className="font-black text-[#6B4423] text-xs leading-tight">{ex.intensity}</p></div>
+                                <div className="bg-[#F5E8D4] p-4 rounded-[1.5rem] border border-[#E8D5B7]/60"><p className="text-[9px] font-black text-[#B8925A] uppercase tracking-widest mb-1">Recupero:</p><p className="font-black text-[#D97555] text-lg">{ex.rest}s</p></div>
+                                <div className="bg-[#F5E8D4] p-4 rounded-[1.5rem] border border-[#E8D5B7]/60"><p className="text-[9px] font-black text-[#B8925A] uppercase tracking-widest mb-1">Intensità:</p><p className="font-black text-[#5C3D2E] text-xs leading-tight">{ex.intensity}</p></div>
                               </div>
-                              {ex.rest > 0 && <RestTimer initialSeconds={ex.rest} colorClass="bg-[#F5E6D3]" accentColor="text-[#B4A284]" />}
-                              <div className="bg-[#FEFCF8] p-5 rounded-3xl border border-[#E8CFAB]/50 shadow-sm"><p className="text-[10px] font-black text-[#A0755B] uppercase mb-2 tracking-widest">Esecuzione tecnica:</p><p className="text-sm italic text-[#5D4E37] leading-relaxed font-medium">{ex.exec}</p></div>
-                              <div className="bg-[#FFEEE8] p-5 rounded-3xl border border-[#F5C8B8] text-[#8B4A3A]"><p className="text-[10px] font-black text-[#C97C5D] uppercase flex items-center gap-2 mb-2 tracking-widest"><AlertTriangle className="w-3 h-3" /> Attenzione agli errori:</p><p className="text-sm leading-relaxed">{ex.errors}</p></div>
+                              {ex.rest > 0 && <RestTimer initialSeconds={ex.rest} colorClass="bg-[#FFE8D6]" accentColor="text-[#C19A6B]" />}
+                              <div className="bg-white p-5 rounded-3xl border border-[#E8D5B7]/60 shadow-sm"><p className="text-[10px] font-black text-[#B8925A] uppercase mb-2 tracking-widest">Esecuzione tecnica:</p><p className="text-sm italic text-[#5C3D2E] leading-relaxed font-medium">{ex.exec}</p></div>
+                              <div className="bg-[#FFE8E0] p-5 rounded-3xl border border-[#FFCAB5] text-[#A0523D]"><p className="text-[10px] font-black text-[#D97555] uppercase flex items-center gap-2 mb-2 tracking-widest"><AlertTriangle className="w-3 h-3" /> Attenzione agli errori:</p><p className="text-sm leading-relaxed">{ex.errors}</p></div>
                             </div>
                           </div>
                         )}
@@ -356,21 +355,21 @@ const App = () => {
 
         {activeTab === 'diario' && (
           <section className="space-y-6 animate-in slide-in-from-right-4 duration-700">
-            <div className="bg-[#FEFCF8] p-8 rounded-[2.5rem] border border-[#E8CFAB]/50 shadow-md">
+            <div className="bg-white p-8 rounded-[2.5rem] border border-[#E8D5B7]/60 shadow-md">
               <form onSubmit={addDiaryEntry} className="space-y-4">
-                <label className="block text-sm font-black text-[#6B4423] px-1 uppercase tracking-wider text-center">Come ti senti oggi?</label>
-                <textarea value={newEntry} onChange={(e) => setNewEntry(e.target.value)} placeholder="Oggi mi sento..." className="w-full p-6 rounded-[2rem] bg-[#FFF8E7] border-2 border-[#E8CFAB] focus:border-[#D4A373] focus:ring-0 outline-none min-h-[160px] text-[#5D4E37] font-medium placeholder:italic transition-all shadow-inner" />
-                <button type="submit" className="w-full py-5 bg-gradient-to-r from-[#B4A284] to-[#A89168] hover:from-[#A89168] hover:to-[#9B845C] text-white rounded-[2rem] font-black uppercase tracking-widest shadow-md hover:shadow-lg transition-all active:scale-[0.98]">Salva sensazione</button>
+                <label className="block text-sm font-black text-[#5C3D2E] px-1 uppercase tracking-wider text-center">Come ti senti oggi?</label>
+                <textarea value={newEntry} onChange={(e) => setNewEntry(e.target.value)} placeholder="Oggi mi sento..." className="w-full p-6 rounded-[2rem] bg-[#FFF9E6] border-2 border-[#F5E8CC] focus:border-[#C9A961] focus:ring-0 outline-none min-h-[160px] text-[#5C3D2E] font-medium placeholder:italic transition-all shadow-inner" />
+                <button type="submit" className="w-full py-5 bg-gradient-to-r from-[#C19A6B] to-[#B8925A] hover:from-[#B8925A] hover:to-[#A88650] text-white rounded-[2rem] font-black uppercase tracking-widest shadow-md hover:shadow-lg transition-all active:scale-[0.98]">Salva sensazione</button>
               </form>
             </div>
             <div className="space-y-4 pt-2">
-              <h3 className="font-black text-[#A0755B] px-2 flex items-center gap-3 uppercase tracking-widest text-xs"><BookOpen className="w-4 h-4" /> Storico note:</h3>
-              {entries.length === 0 ? <div className="text-center py-20 text-[#D4A373] italic font-medium bg-[#FEFCF8] rounded-[2rem] border border-dashed border-[#E8CFAB] uppercase text-[10px] tracking-[0.2em]">Sinfonia del silenzio.</div> :
+              <h3 className="font-black text-[#B8925A] px-2 flex items-center gap-3 uppercase tracking-widest text-xs"><BookOpen className="w-4 h-4" /> Storico note:</h3>
+              {entries.length === 0 ? <div className="text-center py-20 text-[#C9A961] italic font-medium bg-white rounded-[2rem] border border-dashed border-[#E8D5B7] uppercase text-[10px] tracking-[0.2em]">Sinfonia del silenzio.</div> :
                 entries.map((entry) => (
-                  <div key={entry.id} className="bg-[#FEFCF8] p-6 rounded-[2rem] border border-[#E8CFAB]/50 shadow-sm relative overflow-hidden group hover:border-[#D4A373] transition-colors">
-                    <div className="absolute left-0 top-0 bottom-0 w-2 bg-[#D4A373] group-hover:bg-[#C97C5D] transition-colors" />
-                    <div className="text-[10px] font-black text-[#A0755B] uppercase mb-3 tracking-[0.2em]">{entry.date === todayKey ? 'Oggi' : entry.date}</div>
-                    <p className="text-[#5D4E37] text-[15px] whitespace-pre-wrap leading-relaxed font-medium italic">"{entry.text.charAt(0).toUpperCase() + entry.text.slice(1)}"</p>
+                  <div key={entry.id} className="bg-white p-6 rounded-[2rem] border border-[#E8D5B7]/60 shadow-sm relative overflow-hidden group hover:border-[#C9A961] transition-colors">
+                    <div className="absolute left-0 top-0 bottom-0 w-2 bg-[#C9A961] group-hover:bg-[#B8925A] transition-colors" />
+                    <div className="text-[10px] font-black text-[#B8925A] uppercase mb-3 tracking-[0.2em]">{entry.date === todayKey ? 'Oggi' : entry.date}</div>
+                    <p className="text-[#5C3D2E] text-[15px] whitespace-pre-wrap leading-relaxed font-medium italic">"{entry.text.charAt(0).toUpperCase() + entry.text.slice(1)}"</p>
                   </div>
                 ))
               }
@@ -380,7 +379,7 @@ const App = () => {
       </main>
 
       {/* Menu di navigazione fisso in basso */}
-      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 max-w-md w-full bg-gradient-to-t from-[#FEFCF8] to-[#FFF8F0]/95 backdrop-blur-xl border-t border-[#D4A373]/30 shadow-2xl z-30">
+      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 max-w-md w-full bg-gradient-to-t from-white to-[#FFF8F0]/95 backdrop-blur-xl border-t border-[#C9A961]/40 shadow-2xl z-30">
         <div className="flex justify-around items-center px-2 py-2 gap-1">
           {[
             { id: 'oggi', icon: CheckCircle2, label: 'oggi' },
@@ -391,7 +390,7 @@ const App = () => {
             const NavIcon = tab.icon;
             const isSos = tab.id === 'sos';
             return (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={activeTab === tab.id ? { backgroundColor: isSos ? '#C97C5D' : '#6B4423' } : {}} className={`flex flex-col items-center gap-1 flex-1 py-2 rounded-xl transition-all duration-500 ${activeTab === tab.id ? 'text-white font-black shadow-md' : 'text-[#D4A373] font-medium hover:text-[#6B4423] bg-transparent'}`}>
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={activeTab === tab.id ? { backgroundColor: isSos ? '#D97555' : '#7A9B76' } : {}} className={`flex flex-col items-center gap-1 flex-1 py-2 rounded-xl transition-all duration-500 ${activeTab === tab.id ? 'text-white font-black shadow-md' : 'text-[#C9A961] font-medium hover:text-[#5C3D2E] bg-transparent'}`}>
                 <NavIcon className="w-5 h-5" />
                 <span className="text-[8px] font-black uppercase tracking-tighter">{tab.label}</span>
               </button>
