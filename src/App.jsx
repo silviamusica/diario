@@ -246,19 +246,6 @@ const App = () => {
     return () => { unsubProgress(); unsubDiary(); };
   }, [user, todayKey]);
 
-  const toggleTask = async (e, taskId) => {
-    e.stopPropagation();
-    if (!user) return;
-    const newStatus = { ...dailyStatus, [taskId]: !dailyStatus[taskId] };
-    setDailyStatus(newStatus); // Aggiorna immediatamente lo stato locale
-    const progressDoc = doc(db, 'artifacts', appId, 'users', user.uid, 'progress', todayKey);
-    try {
-      await setDoc(progressDoc, { completed: newStatus, focus: focusStatus }, { merge: true });
-    } catch (error) {
-      console.error("Errore salvataggio:", error);
-    }
-  };
-
   const toggleFocus = async (e, taskId) => {
     e.stopPropagation();
     const newFocus = { ...focusStatus, [taskId]: !focusStatus[taskId] };
@@ -326,13 +313,13 @@ const App = () => {
 
             <div className="space-y-3">
               {PROTOCOL.dailyActions.map((action) => (
-                <div key={action.id} className={`rounded-[2rem] border transition-all duration-300 ${focusStatus[action.id] ? 'bg-[#E8D5A0]/40 border-[#C9A961] shadow-xl' : (expandedId === action.id ? 'bg-white border-[#D97555] shadow-md' : 'bg-white border-[#E8D5B7]/60')}`}>
+                <div key={action.id} className={`rounded-[2rem] border transition-all duration-300 ${focusStatus[action.id] ? 'bg-[#D4E7D4]/40 border-[#7A9B76] shadow-xl' : (expandedId === action.id ? 'bg-white border-[#D97555] shadow-md' : 'bg-white border-[#E8D5B7]/60')}`}>
                   <div onClick={() => setExpandedId(expandedId === action.id ? null : action.id)} className="p-4 flex items-center gap-3 cursor-pointer">
                     <div className="flex-1">
                       <span className="text-[9px] font-black uppercase tracking-[0.15em] text-[#B8925A]">{action.time}</span>
                       <h3 className={`font-bold text-sm tracking-tight ${dailyStatus[action.id] ? 'text-[#5C3D2E] opacity-50 line-through' : 'text-[#2D2D2D]'}`}>{action.task}</h3>
                     </div>
-                    <button onClick={(e) => toggleFocus(e, action.id)} className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-all ${focusStatus[action.id] ? 'bg-[#C9A961] text-white shadow-lg' : 'bg-[#F5E8D4] text-[#B8925A] hover:bg-[#E8D5B7] hover:text-[#5C3D2E]'}`}>
+                    <button onClick={(e) => toggleFocus(e, action.id)} className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-all ${focusStatus[action.id] ? 'bg-[#7A9B76] text-white shadow-lg' : 'bg-[#F5E8D4] text-[#B8925A] hover:bg-[#D4E7D4] hover:text-[#7A9B76]'}`}>
                       <Target className="w-7 h-7" />
                     </button>
                   </div>
@@ -415,17 +402,17 @@ const App = () => {
                     const exId = `${key}-${idx}`;
                     const isExpanded = expandedWorkoutId === exId;
                     return (
-                      <div key={idx} className={`rounded-[2rem] border transition-all duration-500 ${dailyStatus[exId] ? 'bg-[#D4E7D4]/40 border-[#7A9B76] shadow-lg' : (isExpanded ? 'bg-white border-[#D97555] shadow-xl translate-y-[-2px]' : 'bg-white border-[#E8D5B7]/60')}`}>
+                      <div key={idx} className={`rounded-[2rem] border transition-all duration-500 ${focusStatus[exId] ? 'bg-[#D4E7D4]/40 border-[#7A9B76] shadow-lg' : (isExpanded ? 'bg-white border-[#D97555] shadow-xl translate-y-[-2px]' : 'bg-white border-[#E8D5B7]/60')}`}>
                         <div onClick={() => setExpandedWorkoutId(isExpanded ? null : exId)} className="p-4 flex items-center justify-between cursor-pointer">
                           <div className="flex-1 px-2">
-                            <h3 className={`font-black text-sm tracking-tight ${dailyStatus[exId] ? 'text-[#5C3D2E] opacity-50 line-through' : 'text-[#2D2D2D]'}`}>{ex.name}</h3>
+                            <h3 className={`font-black text-sm tracking-tight ${focusStatus[exId] ? 'text-[#5C3D2E] opacity-50 line-through' : 'text-[#2D2D2D]'}`}>{ex.name}</h3>
                             <div className="flex gap-2 mt-2">
                               <span className="text-[9px] bg-[#FFE8D6] text-[#D97555] px-3 py-1 rounded-full font-black uppercase tracking-wider">{ex.volume}</span>
-                              {dailyStatus[exId] && <span className="text-[9px] bg-[#C19A6B] text-white px-3 py-1 rounded-full font-black uppercase tracking-wider">✓ Completato</span>}
+                              {focusStatus[exId] && <span className="text-[9px] bg-[#7A9B76] text-white px-3 py-1 rounded-full font-black uppercase tracking-wider">✓ Focus</span>}
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
-                            <button onClick={(e) => toggleTask(e, exId)} className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${dailyStatus[exId] ? 'bg-[#7A9B76] text-white shadow-lg' : 'bg-[#F5E8D4] text-[#B8925A] hover:bg-[#7A9B76]/30 hover:text-[#5C3D2E]'}`}><CheckCircle2 className="w-6 h-6" /></button>
+                            <button onClick={(e) => toggleFocus(e, exId)} className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${focusStatus[exId] ? 'bg-[#7A9B76] text-white shadow-lg' : 'bg-[#F5E8D4] text-[#B8925A] hover:bg-[#D4E7D4] hover:text-[#7A9B76]'}`}><Target className="w-6 h-6" /></button>
                             {isExpanded ? <ChevronUp className="w-5 h-5 text-[#D97555]" /> : <ChevronDown className="w-5 h-5 text-[#C9A961]" />}
                           </div>
                         </div>
