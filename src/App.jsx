@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, setDoc, getDoc, collection, onSnapshot, query, addDoc, serverTimestamp } from 'firebase/firestore';
-import { Heart, CheckCircle2, Calendar, BookOpen, BarChart3, Clock, Utensils, Dumbbell, ChevronDown, ChevronUp, Info, Activity, Timer, Zap, Play, Square, RotateCcw, AlertTriangle, LifeBuoy, Wind, Waves, Thermometer, Eye, ShieldAlert, Sparkles } from 'lucide-react';
+import { Heart, CheckCircle2, Calendar, BookOpen, BarChart3, Clock, Utensils, Dumbbell, ChevronDown, ChevronUp, Info, Activity, Timer, Zap, Play, Square, RotateCcw, AlertTriangle, LifeBuoy, Wind, Waves, Thermometer, Eye, ShieldAlert, Sparkles, Target } from 'lucide-react';
 
 // Configuration
 const firebaseConfig = {
@@ -198,14 +198,17 @@ const App = () => {
 
   const toggleFocus = async (e, taskId) => {
     e.stopPropagation();
-    if (!user) return;
-    const newStatus = { ...dailyStatus, [taskId]: !dailyStatus[taskId] };
-    setDailyStatus(newStatus); // Aggiorna immediatamente lo stato locale
-    const progressDoc = doc(db, 'artifacts', appId, 'users', user.uid, 'progress', todayKey);
-    try {
-      await setDoc(progressDoc, { completed: newStatus, focus: focusStatus }, { merge: true });
-    } catch (error) {
-      console.error("Errore salvataggio:", error);
+    const newFocus = { ...focusStatus, [taskId]: !focusStatus[taskId] };
+    setFocusStatus(newFocus); // Aggiorna immediatamente lo stato locale
+
+    // Salva su Firebase solo se l'utente è loggato
+    if (user) {
+      const progressDoc = doc(db, 'artifacts', appId, 'users', user.uid, 'progress', todayKey);
+      try {
+        await setDoc(progressDoc, { completed: dailyStatus, focus: newFocus }, { merge: true });
+      } catch (error) {
+        console.error("Errore salvataggio:", error);
+      }
     }
   };
 
@@ -242,14 +245,15 @@ const App = () => {
 
             <div className="space-y-3">
               {PROTOCOL.dailyActions.map((action) => (
-                <div key={action.id} className={`bg-white rounded-[2rem] border transition-all duration-300 ${expandedId === action.id ? 'border-[#B2AC88] shadow-md' : 'border-black/5'}`}>
+                <div key={action.id} className={`rounded-[2rem] border transition-all duration-300 ${focusStatus[action.id] ? 'bg-[#9CB4B4]/40 border-[#9CB4B4] shadow-xl' : (expandedId === action.id ? 'bg-white border-[#B2AC88] shadow-md' : 'bg-white border-black/5')}`}>
                   <div onClick={() => setExpandedId(expandedId === action.id ? null : action.id)} className="p-4 flex items-center gap-3 cursor-pointer">
-                    <button onClick={(e) => toggleTask(e, action.id)} className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 transition-all ${dailyStatus[action.id] ? 'bg-[#9CB4B4] text-white' : 'bg-[#F0F4F2] text-slate-300'}`}><CheckCircle2 className="w-6 h-6" /></button>
                     <div className="flex-1">
                       <span className="text-[9px] font-black uppercase tracking-[0.15em] text-[#B2AC88]">{action.time}</span>
                       <h3 className={`font-bold text-sm tracking-tight ${dailyStatus[action.id] ? 'text-[#5C6B73] opacity-50 line-through' : 'text-slate-700'}`}>{action.task}</h3>
                     </div>
-                    <button onClick={(e) => toggleFocus(e, action.id)} className={`p-2 rounded-xl transition-all ${dailyStatus[action.id] ? 'bg-[#9CB4B4] text-white' : 'text-slate-200 hover:text-[#9CB4B4]'}`}><CheckCircle2 className="w-5 h-5" /></button>
+                    <button onClick={(e) => toggleFocus(e, action.id)} className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-all ${focusStatus[action.id] ? 'bg-[#9CB4B4] text-white shadow-lg' : 'bg-[#F0F4F2] text-slate-400 hover:bg-[#E8EEEB] hover:text-[#9CB4B4]'}`}>
+                      <Target className="w-7 h-7" />
+                    </button>
                   </div>
                   {expandedId === action.id && (
                     <div className="px-5 pb-5 animate-in slide-in-from-top-2 duration-200">
@@ -310,16 +314,18 @@ const App = () => {
                     const exId = `${key}-${idx}`;
                     const isExpanded = expandedWorkoutId === exId;
                     return (
-                      <div key={idx} className={`bg-white rounded-[2rem] border transition-all duration-500 ${isExpanded ? 'border-[#E29587] shadow-xl translate-y-[-2px]' : 'border-black/5'}`}>
+                      <div key={idx} className={`rounded-[2rem] border transition-all duration-500 ${focusStatus[exId] ? 'bg-[#9CB4B4]/30 border-[#9CB4B4] shadow-lg' : (isExpanded ? 'bg-white border-[#E29587] shadow-xl translate-y-[-2px]' : 'bg-white border-black/5')}`}>
                         <div onClick={() => setExpandedWorkoutId(isExpanded ? null : exId)} className="p-4 flex items-center justify-between cursor-pointer">
                           <div className="flex-1 px-2">
                             <h3 className={`font-black text-sm tracking-tight ${dailyStatus[exId] ? 'text-[#5C6B73] opacity-50 line-through' : 'text-[#4A4A4A]'}`}>{ex.name}</h3>
                             <div className="flex gap-2 mt-2">
                               <span className="text-[9px] bg-[#FAEBE8] text-[#E29587] px-3 py-1 rounded-full font-black uppercase tracking-wider">{ex.volume}</span>
+                              {dailyStatus[exId] && <span className="text-[9px] bg-[#9CB4B4] text-white px-3 py-1 rounded-full font-black uppercase tracking-wider">✓ Completato</span>}
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
-                            <button onClick={(e) => toggleFocus(e, exId)} className={`p-2 rounded-xl transition-all ${dailyStatus[exId] ? 'bg-[#9CB4B4] text-white' : 'text-slate-200 hover:text-[#9CB4B4]'}`}><CheckCircle2 className="w-5 h-5" /></button>
+                            <button onClick={(e) => toggleTask(e, exId)} className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${dailyStatus[exId] ? 'bg-[#9CB4B4] text-white' : 'bg-[#F0F4F2] text-slate-300 hover:bg-[#9CB4B4]/20'}`}><CheckCircle2 className="w-5 h-5" /></button>
+                            <button onClick={(e) => toggleFocus(e, exId)} className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${focusStatus[exId] ? 'bg-[#9CB4B4] text-white' : 'bg-[#F0F4F2] text-slate-400 hover:bg-[#9CB4B4]/20 hover:text-[#9CB4B4]'}`}><Target className="w-5 h-5" /></button>
                             {isExpanded ? <ChevronUp className="w-5 h-5 text-[#E29587]" /> : <ChevronDown className="w-5 h-5 text-slate-300" />}
                           </div>
                         </div>
@@ -375,7 +381,7 @@ const App = () => {
 
       {/* Menu di navigazione fisso in basso */}
       <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 max-w-md w-full bg-white/95 backdrop-blur-xl border-t border-black/5 shadow-lg z-30">
-        <div className="flex justify-around items-center p-4 gap-2">
+        <div className="flex justify-around items-center px-2 py-2 gap-1">
           {[
             { id: 'oggi', icon: CheckCircle2, label: 'oggi' },
             { id: 'allenamento', icon: Dumbbell, label: 'gym' },
@@ -385,9 +391,9 @@ const App = () => {
             const NavIcon = tab.icon;
             const isSos = tab.id === 'sos';
             return (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex flex-col items-center gap-1.5 flex-1 py-3 rounded-[1.5rem] transition-all duration-500 ${activeTab === tab.id ? (isSos ? 'bg-[#FAEBE8] text-[#E29587] scale-105 font-black shadow-lg' : 'bg-[#F0F4F2] text-[#5C6B73] scale-105 font-black shadow-lg') : 'text-slate-300 font-medium hover:text-slate-500'}`}>
-                <NavIcon className={`w-6 h-6 ${isSos && activeTab === 'sos' ? 'text-[#E29587]' : ''}`} />
-                <span className="text-[9px] font-black uppercase tracking-tighter">{tab.label}</span>
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex flex-col items-center gap-1 flex-1 py-2 rounded-xl transition-all duration-500 ${activeTab === tab.id ? (isSos ? 'bg-[#FAEBE8] text-[#E29587] font-black shadow-md' : 'bg-[#F0F4F2] text-[#5C6B73] font-black shadow-md') : 'text-slate-300 font-medium hover:text-slate-500'}`}>
+                <NavIcon className={`w-5 h-5 ${isSos && activeTab === 'sos' ? 'text-[#E29587]' : ''}`} />
+                <span className="text-[8px] font-black uppercase tracking-tighter">{tab.label}</span>
               </button>
             );
           })}
