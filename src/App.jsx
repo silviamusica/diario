@@ -64,13 +64,76 @@ const PROTOCOL = {
     }
   },
   sosMethods: [
-    { id: 'tipp', title: 'shock termico: tuffo nel freddo', detail: 'Immergi il viso in acqua ghiacciata per 30 secondi o tieni un cubetto di ghiaccio nel palmo della mano.', rationale: 'Protocollo dbt: attiva il riflesso di immersione che abbassa istantaneamente il battito cardiaco.', timer: 30, icon: Thermometer },
-    { id: 'breathing', title: 'respirazione: metodo 4-7-8', detail: 'Inspira per 4 secondi, trattiene per 7, espira profondamente per 8 secondi.', rationale: 'Linee guida ansia: attiva il sistema parasimpatico.', timer: 240, icon: Wind },
-    { id: 'surfing', title: 'urge surfing: cavalca l\'onda', detail: 'Osserva l\'impulso come un\'onda che cresce, raggiunge il picco e si infrange.', rationale: 'Protocollo act: gli impulsi passano se non alimentati.', timer: 900, icon: Waves },
-    { id: 'erp', title: 'doc: prevenzione della risposta', detail: 'Resta nel disagio per 5 minuti senza compiere il rituale.', rationale: 'Gold standard erp: interrompe il ciclo ossessivo.', timer: 300, icon: ShieldAlert },
-    { id: 'mindfulness', title: 'mindfulness: scansione del corpo', detail: 'Porta l\'attenzione alle sensazioni fisiche senza giudicarle.', rationale: 'Mindfulness mbsr: sposta il focus dalla mente al presente.', timer: 600, icon: Eye },
-    { id: 'defusion', title: 'defusione: osserva le nuvole', detail: 'Immagina ogni pensiero come una nuvola che passa.', rationale: 'Protocollo act: crea distanza tra te e il pensiero.', timer: 0, icon: Sparkles },
-    { id: 'grounding', title: 'radicamento: metodo 5-4-3-2-1', detail: 'Nomina: 5 cose che vedi, 4 che puoi toccare, 3 suoni.', rationale: 'Ancora la mente alla realtà sensoriale esterna.', timer: 0, icon: Activity }
+    {
+      id: 'tipp',
+      title: 'shock termico: tuffo nel freddo',
+      detail: 'Immergi il viso in acqua ghiacciata per 30 secondi o tieni un cubetto di ghiaccio nel palmo della mano.',
+      rationale: 'Protocollo DBT (Dialectical Behavior Therapy): attiva il riflesso di immersione dei mammiferi che abbassa istantaneamente il battito cardiaco del 10-25%. Questo riflesso primordiale rallenta il metabolismo e riduce il consumo di ossigeno, creando un effetto calmante immediato sul sistema nervoso simpatico.',
+      howTo: '1. Riempi una ciotola con acqua fredda e cubetti di ghiaccio\n2. Trattieni il respiro e immergi il viso per 15-30 secondi\n3. Respira normalmente e ripeti se necessario\n4. Alternativa: tieni un cubetto di ghiaccio sul polso o sulla nuca',
+      whenToUse: 'Quando: attacco di panico, rabbia intensa, impulso autolesivo, dissociazione acuta. Evita se hai problemi cardiaci.',
+      timer: 30,
+      icon: Thermometer
+    },
+    {
+      id: 'breathing',
+      title: 'respirazione: metodo 4-7-8',
+      detail: 'Inspira per 4 secondi, trattieni per 7, espira profondamente per 8 secondi.',
+      rationale: 'Sviluppato dal Dr. Andrew Weil, questo schema respiratorio attiva il sistema nervoso parasimpatico (riposo e digestione) riducendo il cortisolo. L\'espirazione prolungata stimola il nervo vago che rallenta il battito cardiaco e abbassa la pressione sanguigna. Studi dimostrano una riduzione dell\'ansia del 30-40% dopo 4 cicli.',
+      howTo: '1. Siediti con la schiena dritta\n2. Posiziona la lingua dietro i denti superiori\n3. Inspira silenziosamente dal naso contando fino a 4\n4. Trattieni il respiro contando fino a 7\n5. Espira completamente dalla bocca (con suono) contando fino a 8\n6. Questo è un ciclo. Ripeti per 4 cicli totali',
+      whenToUse: 'Quando: difficoltà ad addormentarsi, ansia generalizzata, prima di eventi stressanti, dopo un litigio. Pratica 2 volte al giorno per risultati ottimali.',
+      timer: 240,
+      icon: Wind
+    },
+    {
+      id: 'surfing',
+      title: 'urge surfing: cavalca l\'onda',
+      detail: 'Osserva l\'impulso come un\'onda che cresce, raggiunge il picco e si infrange.',
+      rationale: 'Tecnica di Mindfulness-Based Relapse Prevention: gli impulsi (cibo, sostanze, comportamenti compulsivi) seguono una curva fisiologica che dura mediamente 15-30 minuti. Se non "cavalchi" l\'impulso senza agire, l\'intensità diminuisce naturalmente. Le neuroscienze mostrano che resistere all\'impulso rafforza la corteccia prefrontale e indebolisce il circuito della ricompensa.',
+      howTo: '1. Quando arriva l\'impulso, fermati e siediti\n2. Identifica dove lo senti nel corpo (stomaco, petto, gola)\n3. Osserva l\'impulso salire come un\'onda: "Sta crescendo..."\n4. Non lottare, non giudicare: sei solo un surfista sull\'onda\n5. Nota il picco: "Ora è al massimo..."\n6. Osserva l\'onda scendere: "Sta diminuendo..."\n7. Respira finché l\'onda non si infrange completamente',
+      whenToUse: 'Quando: voglia di fumare, binge eating, shopping compulsivo, controllo ossessivo del telefono, autolesionismo. Più lo pratichi, più diventa efficace.',
+      timer: 900,
+      icon: Waves
+    },
+    {
+      id: 'erp',
+      title: 'doc: prevenzione della risposta',
+      detail: 'Resta nel disagio per 5 minuti senza compiere il rituale.',
+      rationale: 'Exposure and Response Prevention (ERP): il gold standard per il Disturbo Ossessivo-Compulsivo. Il ciclo DOC funziona così: ossessione → ansia → compulsione → sollievo temporaneo. L\'ERP interrompe questo circuito: ti esponi all\'ossessione ma blocchi la compulsione. Inizialmente l\'ansia sale, ma dopo 20-40 minuti scende naturalmente (abituazione). Il cervello impara che l\'ossessione non è pericolosa e che non serve il rituale.',
+      howTo: '1. Identifica il pensiero ossessivo (es: "Non ho chiuso il gas")\n2. Nota l\'ansia salire (scala da 0 a 10)\n3. Resisti all\'impulso di fare il rituale (non controllare)\n4. Cronometra: resta nel disagio per almeno 5-10 minuti\n5. Osserva l\'ansia senza giudicarla: "Sto sentendo ansia"\n6. Nota l\'ansia diminuire gradualmente\n7. Ripeti: ogni esposizione rende il rituale meno necessario',
+      whenToUse: 'Quando: controlli ripetuti (porte, fornelli), lavaggio mani compulsivo, pensieri intrusivi, rituali mentali. Consulta sempre un terapeuta specializzato in DOC prima di iniziare.',
+      timer: 300,
+      icon: ShieldAlert
+    },
+    {
+      id: 'mindfulness',
+      title: 'mindfulness: scansione del corpo',
+      detail: 'Porta l\'attenzione alle sensazioni fisiche senza giudicarle.',
+      rationale: 'Body Scan Meditation del programma MBSR (Mindfulness-Based Stress Reduction) di Jon Kabat-Zinn. La scansione corporea interrompe il pilota automatico mentale e riporta l\'attenzione al presente. Studi fMRI mostrano che la pratica regolare riduce l\'attività dell\'amigdala (centro della paura) e aumenta la materia grigia nell\'ippocampo (memoria e regolazione emotiva). Dopo 8 settimane di pratica quotidiana, si osserva una riduzione del 40% nei sintomi di ansia e depressione.',
+      howTo: '1. Sdraiati o siediti comodamente\n2. Chiudi gli occhi e porta attenzione ai piedi\n3. Nota sensazioni: calore, freddo, formicolio, pressione\n4. Respira "dentro" i piedi per 30 secondi\n5. Sposta l\'attenzione alle caviglie, poi polpacci, ginocchia...\n6. Procedi lentamente: cosce → bacino → addome → petto\n7. Spalle → braccia → mani → collo → viso → testa\n8. Termina con 3 respiri profondi consapevoli\n9. Non cercare di cambiare nulla, solo osserva',
+      whenToUse: 'Quando: tensione muscolare cronica, difficoltà a dormire, dissociazione dal corpo, dopo traumi, dolore cronico. Pratica quotidiana ideale: 10 minuti prima di dormire.',
+      timer: 600,
+      icon: Eye
+    },
+    {
+      id: 'defusion',
+      title: 'defusione: osserva le nuvole',
+      detail: 'Immagina ogni pensiero come una nuvola che passa.',
+      rationale: 'Tecnica chiave dell\'Acceptance and Commitment Therapy (ACT). Normalmente siamo "fusi" con i pensieri: "Sono un fallimento" diventa la realtà. La defusione crea distanza: "Sto avendo il pensiero che sono un fallimento". Questa separazione riduce l\'impatto emotivo del 50-70% perché riconosci i pensieri come eventi mentali temporanei, non verità assolute. Il cervello impara che i pensieri sono solo... pensieri.',
+      howTo: '1. Chiudi gli occhi e immagina un cielo blu\n2. Quando arriva un pensiero negativo, scrivilo su una nuvola\n3. Osserva la nuvola attraversare il cielo lentamente\n4. Non cercare di spingere via la nuvola (resistenza = persistenza)\n5. Lascia che passi da sola mentre tu osservi\n6. Altre tecniche di defusione:\n   - "Sto avendo il pensiero che..." (davanti ad ogni pensiero)\n   - Canta il pensiero sulla melodia di "Tanti auguri"\n   - Ripeti il pensiero 20 volte velocemente fino a perdere significato\n   - Visualizza i pensieri come messaggi su un nastro trasportatore',
+      whenToUse: 'Quando: ruminazione mentale, autocritica intensa, pensieri catastrofici, dialogo interno tossico. Pratica ogni volta che un pensiero ti blocca.',
+      timer: 0,
+      icon: Sparkles
+    },
+    {
+      id: 'grounding',
+      title: 'radicamento: metodo 5-4-3-2-1',
+      detail: 'Nomina: 5 cose che vedi, 4 che puoi toccare, 3 suoni, 2 odori, 1 sapore.',
+      rationale: 'Tecnica di grounding sensoriale usata per dissociazione, flashback e attacchi di panico. Durante l\'ansia intensa, il cervello è "sequestrato" dall\'amigdala (modalità sopravvivenza). Coinvolgendo attivamente i 5 sensi, si riattiva la corteccia prefrontale (pensiero razionale) e si invia il messaggio: "Sono al sicuro, sono qui e ora". La ricerca mostra una riduzione dell\'ansia del 60% entro 3-5 minuti di pratica.',
+      howTo: '1. Fermati e respira profondamente\n2. VISTA: nomina ad alta voce 5 cose che vedi ("Vedo una sedia rossa, un quadro, la porta...")\n3. TATTO: nomina 4 cose che puoi toccare e toccale ("Sento il tessuto del divano, il pavimento freddo, i miei capelli, il telefono liscio")\n4. UDITO: nomina 3 suoni che senti ("Sento il traffico fuori, il frigo che ronza, il mio respiro")\n5. OLFATTO: nomina 2 odori ("Sento profumo di caffè, l\'aria fresca")\n6. GUSTO: nomina 1 sapore ("Sento il sapore di menta in bocca")\n7. Variante veloce: nomina tutto ciò che vedi di un colore specifico (es: tutte le cose blu nella stanza)',
+      whenToUse: 'Quando: flashback post-traumatici, derealizzazione, attacchi di panico, ansia pre-esame, prima di dormire se la mente corre. Strumento salvavita per chi soffre di PTSD.',
+      timer: 0,
+      icon: Activity
+    }
   ]
 };
 
@@ -214,10 +277,29 @@ const App = () => {
 
   const addDiaryEntry = async (e) => {
     e.preventDefault();
-    if (!user || !newEntry.trim()) return;
-    const diaryCol = collection(db, 'artifacts', appId, 'users', user.uid, 'diary');
-    await addDoc(diaryCol, { text: newEntry, timestamp: serverTimestamp(), date: todayKey });
+    if (!newEntry.trim()) return;
+
+    // Crea entry locale
+    const newEntryObj = {
+      id: Date.now().toString(),
+      text: newEntry,
+      timestamp: { seconds: Date.now() / 1000 },
+      date: todayKey
+    };
+
+    // Aggiorna subito lo stato locale
+    setEntries([newEntryObj, ...entries]);
     setNewEntry('');
+
+    // Salva su Firebase solo se l'utente esiste
+    if (user) {
+      try {
+        const diaryCol = collection(db, 'artifacts', appId, 'users', user.uid, 'diary');
+        await addDoc(diaryCol, { text: newEntryObj.text, timestamp: serverTimestamp(), date: todayKey });
+      } catch (error) {
+        console.error("Errore salvataggio diario:", error);
+      }
+    }
   };
 
   if (loading) return <div className="flex items-center justify-center min-h-screen bg-[#F0E6D2] font-sans text-[#D97555] animate-pulse text-xl font-bold italic uppercase tracking-widest">MuovitAzione...</div>;
@@ -286,13 +368,33 @@ const App = () => {
                       {expandedSosId === method.id ? <ChevronUp className="text-[#D97555]" /> : <ChevronDown className="text-[#C9A961]" />}
                     </div>
                     {expandedSosId === method.id && (
-                      <div className="px-6 pb-8 animate-in fade-in duration-500">
-                        <div className="h-px bg-[#F5E8CC] mb-5" />
-                        <p className="text-[#5C3D2E] text-[15px] leading-relaxed font-medium mb-5 italic">"{method.detail}"</p>
-                        <div className="bg-[#FFF9E6] p-5 rounded-3xl border border-[#F5E8CC] text-xs text-[#5C3D2E] leading-relaxed shadow-inner">
-                          <span className="font-black uppercase block mb-2 tracking-widest text-[9px] text-[#D97555]">Protocollo scientifico:</span>
-                          {method.rationale}
+                      <div className="px-6 pb-8 animate-in fade-in duration-500 space-y-5">
+                        <div className="h-px bg-[#F5E8CC]" />
+
+                        <div className="bg-[#FFF9E6] p-5 rounded-3xl border border-[#F5E8CC] shadow-inner">
+                          <span className="font-black uppercase block mb-2 tracking-widest text-[9px] text-[#D97555]">Cosa fare:</span>
+                          <p className="text-[#5C3D2E] text-sm leading-relaxed font-medium italic">"{method.detail}"</p>
                         </div>
+
+                        {method.howTo && (
+                          <div className="bg-white p-5 rounded-3xl border border-[#E8D5B7]/60 shadow-sm">
+                            <span className="font-black uppercase block mb-3 tracking-widest text-[9px] text-[#B8925A]">Come eseguirlo passo per passo:</span>
+                            <p className="text-[#5C3D2E] text-sm leading-relaxed whitespace-pre-line">{method.howTo}</p>
+                          </div>
+                        )}
+
+                        <div className="bg-[#E8F4E8] p-5 rounded-3xl border border-[#B8D4B8]">
+                          <span className="font-black uppercase block mb-2 tracking-widest text-[9px] text-[#5C8B5C]">Perché funziona:</span>
+                          <p className="text-[#3D5C3D] text-xs leading-relaxed">{method.rationale}</p>
+                        </div>
+
+                        {method.whenToUse && (
+                          <div className="bg-[#FFE8D6] p-5 rounded-3xl border border-[#FFCAB5]">
+                            <span className="font-black uppercase block mb-2 tracking-widest text-[9px] text-[#D97555]">Quando usarlo:</span>
+                            <p className="text-[#A0523D] text-xs leading-relaxed">{method.whenToUse}</p>
+                          </div>
+                        )}
+
                         {method.timer > 0 && <RestTimer initialSeconds={method.timer} colorClass="bg-[#FFE8D6]" accentColor="text-[#D97555]" />}
                       </div>
                     )}
@@ -313,7 +415,7 @@ const App = () => {
                     const exId = `${key}-${idx}`;
                     const isExpanded = expandedWorkoutId === exId;
                     return (
-                      <div key={idx} className={`rounded-[2rem] border transition-all duration-500 ${focusStatus[exId] ? 'bg-[#E8D5A0]/30 border-[#C9A961] shadow-lg' : (isExpanded ? 'bg-white border-[#D97555] shadow-xl translate-y-[-2px]' : 'bg-white border-[#E8D5B7]/60')}`}>
+                      <div key={idx} className={`rounded-[2rem] border transition-all duration-500 ${dailyStatus[exId] ? 'bg-[#D4E7D4]/40 border-[#7A9B76] shadow-lg' : (isExpanded ? 'bg-white border-[#D97555] shadow-xl translate-y-[-2px]' : 'bg-white border-[#E8D5B7]/60')}`}>
                         <div onClick={() => setExpandedWorkoutId(isExpanded ? null : exId)} className="p-4 flex items-center justify-between cursor-pointer">
                           <div className="flex-1 px-2">
                             <h3 className={`font-black text-sm tracking-tight ${dailyStatus[exId] ? 'text-[#5C3D2E] opacity-50 line-through' : 'text-[#2D2D2D]'}`}>{ex.name}</h3>
@@ -323,8 +425,7 @@ const App = () => {
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
-                            <button onClick={(e) => toggleTask(e, exId)} className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${dailyStatus[exId] ? 'bg-[#C19A6B] text-white' : 'bg-[#F5E8D4] text-[#B8925A] hover:bg-[#C19A6B]/30'}`}><CheckCircle2 className="w-5 h-5" /></button>
-                            <button onClick={(e) => toggleFocus(e, exId)} className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${focusStatus[exId] ? 'bg-[#C9A961] text-white' : 'bg-[#F5E8D4] text-[#B8925A] hover:bg-[#C9A961]/30 hover:text-[#5C3D2E]'}`}><Target className="w-5 h-5" /></button>
+                            <button onClick={(e) => toggleTask(e, exId)} className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${dailyStatus[exId] ? 'bg-[#7A9B76] text-white shadow-lg' : 'bg-[#F5E8D4] text-[#B8925A] hover:bg-[#7A9B76]/30 hover:text-[#5C3D2E]'}`}><CheckCircle2 className="w-6 h-6" /></button>
                             {isExpanded ? <ChevronUp className="w-5 h-5 text-[#D97555]" /> : <ChevronDown className="w-5 h-5 text-[#C9A961]" />}
                           </div>
                         </div>
