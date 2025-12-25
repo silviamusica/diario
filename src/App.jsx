@@ -480,7 +480,7 @@ const App = () => {
       </main>
 
       {/* Menu di navigazione fisso in basso */}
-      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 max-w-md w-full bg-gradient-to-t from-white to-[#FFF8F0]/95 backdrop-blur-xl border-t border-[#C9A961]/40 shadow-2xl z-30">
+      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 max-w-md w-full bg-gradient-to-t from-white to-[#F8FBF8]/95 backdrop-blur-xl border-t border-[#7A9B76]/30 shadow-2xl z-30">
         <div className="flex justify-around items-center px-2 py-2 gap-1">
           {[
             { id: 'oggi', icon: CheckCircle2, label: 'oggi' },
@@ -491,7 +491,7 @@ const App = () => {
             const NavIcon = tab.icon;
             const isSos = tab.id === 'sos';
             return (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={activeTab === tab.id ? { backgroundColor: isSos ? '#D97555' : '#7A9B76' } : {}} className={`flex flex-col items-center gap-1 flex-1 py-2 rounded-xl transition-all duration-500 ${activeTab === tab.id ? 'text-white font-black shadow-md' : 'text-[#C9A961] font-medium hover:text-[#5C3D2E] bg-transparent'}`}>
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={activeTab === tab.id ? { backgroundColor: isSos ? '#D97555' : '#7A9B76' } : {}} className={`flex flex-col items-center gap-1 flex-1 py-2 rounded-xl transition-all duration-500 ${activeTab === tab.id ? 'text-white font-black shadow-md' : 'text-[#A8C4A8] font-medium hover:text-[#7A9B76] bg-transparent'}`}>
                 <NavIcon className="w-5 h-5" />
                 <span className="text-[8px] font-black uppercase tracking-tighter">{tab.label}</span>
               </button>
