@@ -93,7 +93,7 @@ const playTibetanBowl = () => {
   osc1.stop(ctx.currentTime + 6); osc2.stop(ctx.currentTime + 6);
 };
 
-const RestTimer = ({ initialSeconds, colorClass = "bg-[#D8E2DC]", accentColor = "text-[#E29587]" }) => {
+const RestTimer = ({ initialSeconds, colorClass = "bg-[#F5E6D3]", accentColor = "text-[#C97C5D]" }) => {
   const [timeLeft, setTimeLeft] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const timerRef = useRef(null);
@@ -110,19 +110,19 @@ const RestTimer = ({ initialSeconds, colorClass = "bg-[#D8E2DC]", accentColor = 
   }, [isActive, timeLeft]);
 
   return (
-    <div className={`p-4 rounded-3xl mt-4 border border-[#5C6B73]/10 ${colorClass} shadow-sm`}>
+    <div className={`p-4 rounded-3xl mt-4 border border-[#E8CFAB]/50 ${colorClass} shadow-sm`}>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <Timer className={`w-5 h-5 ${isActive ? 'animate-pulse text-red-400' : 'text-slate-400'}`} />
-          <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Timer attivo</span>
+          <Timer className={`w-5 h-5 ${isActive ? 'animate-pulse text-[#C97C5D]' : 'text-[#A0755B]'}`} />
+          <span className="text-[10px] font-black uppercase tracking-widest text-[#6B4423]">Timer attivo</span>
         </div>
         <div className={`text-3xl font-mono font-black ${accentColor}`}>
           {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
         </div>
       </div>
       <div className="flex gap-2">
-        <button onClick={() => { setTimeLeft(initialSeconds); setIsActive(true); }} className="flex-1 py-3 bg-white/60 hover:bg-white text-slate-700 rounded-2xl font-bold border border-[#5C6B73]/10 transition-all text-sm uppercase">Avvia {initialSeconds < 60 ? initialSeconds + 's' : Math.floor(initialSeconds/60) + 'm'}</button>
-        <button onClick={() => { setIsActive(false); setTimeLeft(0); }} className="px-4 py-3 bg-white/40 rounded-2xl"><RotateCcw className="w-5 h-5 text-slate-500" /></button>
+        <button onClick={() => { setTimeLeft(initialSeconds); setIsActive(true); }} className="flex-1 py-3 bg-[#FEFCF8]/60 hover:bg-[#FEFCF8] text-[#6B4423] rounded-2xl font-bold border border-[#E8CFAB]/50 transition-all text-sm uppercase">Avvia {initialSeconds < 60 ? initialSeconds + 's' : Math.floor(initialSeconds/60) + 'm'}</button>
+        <button onClick={() => { setIsActive(false); setTimeLeft(0); }} className="px-4 py-3 bg-[#FEFCF8]/40 rounded-2xl"><RotateCcw className="w-5 h-5 text-[#A0755B]" /></button>
       </div>
     </div>
   );
@@ -220,46 +220,46 @@ const App = () => {
     setNewEntry('');
   };
 
-  if (loading) return <div className="flex items-center justify-center min-h-screen bg-[#FAF9F6] font-sans text-[#B2AC88] animate-pulse text-xl font-bold italic uppercase tracking-widest">MuovitAzione...</div>;
+  if (loading) return <div className="flex items-center justify-center min-h-screen bg-[#F5EBE0] font-sans text-[#C97C5D] animate-pulse text-xl font-bold italic uppercase tracking-widest">MuovitAzione...</div>;
 
   return (
-    <div className="relative max-w-md mx-auto min-h-screen bg-[#FAF9F6] flex flex-col font-sans text-[#4A4A4A] pb-24 border-x border-[#5C6B73]/10">
-      <header className="bg-white border-b border-[#5C6B73]/10 p-8 sticky top-0 z-20 shadow-sm text-center">
-        <h1 className="text-3xl font-black text-[#5C6B73] flex items-center justify-center gap-2 tracking-tighter">
-          <Heart className="w-7 h-7 fill-red-500 text-red-500 animate-pulse" />
+    <div className="relative max-w-md mx-auto min-h-screen bg-[#F5EBE0] flex flex-col font-sans text-[#3D3D3D] pb-24 border-x border-[#D4A373]/20">
+      <header className="bg-gradient-to-b from-[#E8CFAB] to-[#F5DFB8] border-b border-[#D4A373]/30 p-8 sticky top-0 z-20 shadow-lg text-center">
+        <h1 className="text-3xl font-black text-[#6B4423] flex items-center justify-center gap-2 tracking-tighter drop-shadow-sm">
+          <Heart className="w-7 h-7 fill-[#C97C5D] text-[#C97C5D] animate-pulse" />
           MuovitAzione
         </h1>
-        <p className="text-[10px] text-[#B2AC88] mt-2 uppercase tracking-[0.2em] font-black">Il tuo protocollo vintage 2.0</p>
+        <p className="text-[10px] text-[#A0755B] mt-2 uppercase tracking-[0.2em] font-black">Il tuo protocollo vintage 2.0</p>
       </header>
 
       <main className="flex-1 p-5 space-y-6 overflow-x-hidden">
         {activeTab === 'oggi' && (
           <section className="space-y-4 animate-in fade-in duration-700">
-            <div className="bg-[#D8E2DC] p-6 rounded-[2.5rem] shadow-sm border border-[#5C6B73]/10 relative overflow-hidden">
-              <h2 className="font-black text-lg flex items-center gap-3 text-[#5C6B73] uppercase tracking-tight">
-                <Calendar className="w-5 h-5 text-[#9CB4B4]" />
+            <div className="bg-gradient-to-br from-[#B4A284] to-[#A89168] p-6 rounded-[2.5rem] shadow-md border border-[#D4A373]/40 relative overflow-hidden">
+              <h2 className="font-black text-lg flex items-center gap-3 text-white uppercase tracking-tight drop-shadow">
+                <Calendar className="w-5 h-5 text-[#F5EBE0]" />
                 Oggi: {currentProgram.type}
               </h2>
-              <p className="text-[#6A7B83] text-sm mt-2 font-medium italic">{currentProgram.task}</p>
+              <p className="text-[#F5EBE0]/90 text-sm mt-2 font-medium italic">{currentProgram.task}</p>
             </div>
 
             <div className="space-y-3">
               {PROTOCOL.dailyActions.map((action) => (
-                <div key={action.id} className={`rounded-[2rem] border transition-all duration-300 ${focusStatus[action.id] ? 'bg-[#9CB4B4]/40 border-[#9CB4B4] shadow-xl' : (expandedId === action.id ? 'bg-white border-[#B2AC88] shadow-md' : 'bg-white border-[#5C6B73]/10')}`}>
+                <div key={action.id} className={`rounded-[2rem] border transition-all duration-300 ${focusStatus[action.id] ? 'bg-[#D4A373]/30 border-[#D4A373] shadow-xl' : (expandedId === action.id ? 'bg-[#FEFCF8] border-[#C97C5D] shadow-md' : 'bg-[#FEFCF8] border-[#E8CFAB]/50')}`}>
                   <div onClick={() => setExpandedId(expandedId === action.id ? null : action.id)} className="p-4 flex items-center gap-3 cursor-pointer">
                     <div className="flex-1">
-                      <span className="text-[9px] font-black uppercase tracking-[0.15em] text-[#B2AC88]">{action.time}</span>
-                      <h3 className={`font-bold text-sm tracking-tight ${dailyStatus[action.id] ? 'text-[#5C6B73] opacity-50 line-through' : 'text-slate-700'}`}>{action.task}</h3>
+                      <span className="text-[9px] font-black uppercase tracking-[0.15em] text-[#A0755B]">{action.time}</span>
+                      <h3 className={`font-bold text-sm tracking-tight ${dailyStatus[action.id] ? 'text-[#6B4423] opacity-50 line-through' : 'text-[#3D3D3D]'}`}>{action.task}</h3>
                     </div>
-                    <button onClick={(e) => toggleFocus(e, action.id)} className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-all ${focusStatus[action.id] ? 'bg-[#9CB4B4] text-white shadow-lg' : 'bg-[#F0F4F2] text-slate-400 hover:bg-[#E8EEEB] hover:text-[#9CB4B4]'}`}>
+                    <button onClick={(e) => toggleFocus(e, action.id)} className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-all ${focusStatus[action.id] ? 'bg-[#D4A373] text-white shadow-lg' : 'bg-[#F5EBE0] text-[#A0755B] hover:bg-[#E8CFAB] hover:text-[#6B4423]'}`}>
                       <Target className="w-7 h-7" />
                     </button>
                   </div>
                   {expandedId === action.id && (
                     <div className="px-5 pb-5 animate-in slide-in-from-top-2 duration-200">
-                      <p className="text-sm text-slate-600 leading-relaxed mb-4 border-t border-slate-50 pt-4 font-medium">{action.detail}</p>
-                      <div className="bg-[#FDF5E6]/60 p-4 rounded-2xl border border-[#F5E6CC] text-[13px] text-[#8B7355] italic leading-relaxed">
-                        <span className="font-black uppercase not-italic text-[10px] block mb-1 tracking-wider">Perché funziona:</span>
+                      <p className="text-sm text-[#5D4E37] leading-relaxed mb-4 border-t border-[#E8CFAB]/30 pt-4 font-medium">{action.detail}</p>
+                      <div className="bg-[#FFF8E7] p-4 rounded-2xl border border-[#E8CFAB] text-[13px] text-[#6B4423] italic leading-relaxed shadow-inner">
+                        <span className="font-black uppercase not-italic text-[10px] block mb-1 tracking-wider text-[#A0755B]">Perché funziona:</span>
                         {action.rationale}
                       </div>
                     </div>
@@ -272,29 +272,29 @@ const App = () => {
 
         {activeTab === 'sos' && (
           <section className="space-y-4 animate-in slide-in-from-bottom-6 duration-700">
-            <div className="bg-[#E29587] p-8 rounded-[3rem] shadow-lg border-b-8 border-[#C87567]">
-              <h2 className="text-2xl font-black flex items-center gap-3 text-white uppercase italic tracking-tighter"><LifeBuoy className="w-7 h-7" /> Sos: rifugio</h2>
-              <p className="text-red-50 text-sm mt-3 font-medium leading-relaxed">Momento di tempesta? Questi sono i tuoi strumenti salvavita.</p>
+            <div className="bg-gradient-to-br from-[#C97C5D] to-[#B56947] p-8 rounded-[3rem] shadow-xl border-b-8 border-[#A0523D]">
+              <h2 className="text-2xl font-black flex items-center gap-3 text-white uppercase italic tracking-tighter drop-shadow-md"><LifeBuoy className="w-7 h-7" /> Sos: rifugio</h2>
+              <p className="text-[#FFF8F0] text-sm mt-3 font-medium leading-relaxed">Momento di tempesta? Questi sono i tuoi strumenti salvavita.</p>
             </div>
             <div className="space-y-3 pt-2">
               {PROTOCOL.sosMethods.map((method) => {
                 const IconComponent = method.icon;
                 return (
-                  <div key={method.id} className={`bg-white rounded-[2.2rem] border-2 transition-all duration-500 ${expandedSosId === method.id ? 'border-[#E29587] shadow-lg scale-[1.02]' : 'border-[#5C6B73]/10'}`}>
+                  <div key={method.id} className={`bg-[#FEFCF8] rounded-[2.2rem] border-2 transition-all duration-500 ${expandedSosId === method.id ? 'border-[#C97C5D] shadow-lg scale-[1.02]' : 'border-[#E8CFAB]/50'}`}>
                     <div onClick={() => setExpandedSosId(expandedSosId === method.id ? null : method.id)} className="p-5 flex items-center gap-5 cursor-pointer">
-                      <div className={`p-4 rounded-3xl transition-colors ${expandedSosId === method.id ? 'bg-[#E29587] text-white' : 'bg-[#FAEBE8] text-[#E29587]'}`}><IconComponent className="w-7 h-7" /></div>
-                      <h3 className="flex-1 font-black text-[#5C6B73] text-sm uppercase tracking-tight leading-tight">{method.title}</h3>
-                      {expandedSosId === method.id ? <ChevronUp className="text-[#E29587]" /> : <ChevronDown className="text-slate-300" />}
+                      <div className={`p-4 rounded-3xl transition-colors ${expandedSosId === method.id ? 'bg-[#C97C5D] text-white' : 'bg-[#F5E6D3] text-[#C97C5D]'}`}><IconComponent className="w-7 h-7" /></div>
+                      <h3 className="flex-1 font-black text-[#6B4423] text-sm uppercase tracking-tight leading-tight">{method.title}</h3>
+                      {expandedSosId === method.id ? <ChevronUp className="text-[#C97C5D]" /> : <ChevronDown className="text-[#D4A373]" />}
                     </div>
                     {expandedSosId === method.id && (
                       <div className="px-6 pb-8 animate-in fade-in duration-500">
-                        <div className="h-px bg-[#FCECE9] mb-5" />
-                        <p className="text-slate-700 text-[15px] leading-relaxed font-medium mb-5 italic">"{method.detail}"</p>
-                        <div className="bg-[#FFF8F7] p-5 rounded-3xl border border-[#FCECE9] text-xs text-[#9E6257] leading-relaxed shadow-inner">
-                          <span className="font-black uppercase block mb-2 tracking-widest text-[9px] text-[#E29587]">Protocollo scientifico:</span>
+                        <div className="h-px bg-[#E8CFAB] mb-5" />
+                        <p className="text-[#5D4E37] text-[15px] leading-relaxed font-medium mb-5 italic">"{method.detail}"</p>
+                        <div className="bg-[#FFF8E7] p-5 rounded-3xl border border-[#E8CFAB] text-xs text-[#6B4423] leading-relaxed shadow-inner">
+                          <span className="font-black uppercase block mb-2 tracking-widest text-[9px] text-[#C97C5D]">Protocollo scientifico:</span>
                           {method.rationale}
                         </div>
-                        {method.timer > 0 && <RestTimer initialSeconds={method.timer} colorClass="bg-[#FAEBE8]" accentColor="text-[#E29587]" />}
+                        {method.timer > 0 && <RestTimer initialSeconds={method.timer} colorClass="bg-[#F5E6D3]" accentColor="text-[#C97C5D]" />}
                       </div>
                     )}
                   </div>
@@ -308,40 +308,40 @@ const App = () => {
           <section className="space-y-8 animate-in fade-in duration-700">
             {Object.entries(PROTOCOL.workouts).map(([key, workout]) => (
               <div key={key} className="space-y-4">
-                <h2 className="text-lg font-black text-[#5C6B73] px-1 border-l-[6px] border-[#E29587] pl-4 uppercase tracking-widest">{workout.title}</h2>
+                <h2 className="text-lg font-black text-[#6B4423] px-1 border-l-[6px] border-[#C97C5D] pl-4 uppercase tracking-widest">{workout.title}</h2>
                 <div className="space-y-3">
                   {workout.exercises.map((ex, idx) => {
                     const exId = `${key}-${idx}`;
                     const isExpanded = expandedWorkoutId === exId;
                     return (
-                      <div key={idx} className={`rounded-[2rem] border transition-all duration-500 ${focusStatus[exId] ? 'bg-[#9CB4B4]/30 border-[#9CB4B4] shadow-lg' : (isExpanded ? 'bg-white border-[#E29587] shadow-xl translate-y-[-2px]' : 'bg-white border-[#5C6B73]/10')}`}>
+                      <div key={idx} className={`rounded-[2rem] border transition-all duration-500 ${focusStatus[exId] ? 'bg-[#D4A373]/25 border-[#D4A373] shadow-lg' : (isExpanded ? 'bg-[#FEFCF8] border-[#C97C5D] shadow-xl translate-y-[-2px]' : 'bg-[#FEFCF8] border-[#E8CFAB]/50')}`}>
                         <div onClick={() => setExpandedWorkoutId(isExpanded ? null : exId)} className="p-4 flex items-center justify-between cursor-pointer">
                           <div className="flex-1 px-2">
-                            <h3 className={`font-black text-sm tracking-tight ${dailyStatus[exId] ? 'text-[#5C6B73] opacity-50 line-through' : 'text-[#4A4A4A]'}`}>{ex.name}</h3>
+                            <h3 className={`font-black text-sm tracking-tight ${dailyStatus[exId] ? 'text-[#6B4423] opacity-50 line-through' : 'text-[#3D3D3D]'}`}>{ex.name}</h3>
                             <div className="flex gap-2 mt-2">
-                              <span className="text-[9px] bg-[#FAEBE8] text-[#E29587] px-3 py-1 rounded-full font-black uppercase tracking-wider">{ex.volume}</span>
-                              {dailyStatus[exId] && <span className="text-[9px] bg-[#9CB4B4] text-white px-3 py-1 rounded-full font-black uppercase tracking-wider">✓ Completato</span>}
+                              <span className="text-[9px] bg-[#F5E6D3] text-[#C97C5D] px-3 py-1 rounded-full font-black uppercase tracking-wider">{ex.volume}</span>
+                              {dailyStatus[exId] && <span className="text-[9px] bg-[#B4A284] text-white px-3 py-1 rounded-full font-black uppercase tracking-wider">✓ Completato</span>}
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
-                            <button onClick={(e) => toggleTask(e, exId)} className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${dailyStatus[exId] ? 'bg-[#9CB4B4] text-white' : 'bg-[#F0F4F2] text-slate-300 hover:bg-[#9CB4B4]/20'}`}><CheckCircle2 className="w-5 h-5" /></button>
-                            <button onClick={(e) => toggleFocus(e, exId)} className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${focusStatus[exId] ? 'bg-[#9CB4B4] text-white' : 'bg-[#F0F4F2] text-slate-400 hover:bg-[#9CB4B4]/20 hover:text-[#9CB4B4]'}`}><Target className="w-5 h-5" /></button>
-                            {isExpanded ? <ChevronUp className="w-5 h-5 text-[#E29587]" /> : <ChevronDown className="w-5 h-5 text-slate-300" />}
+                            <button onClick={(e) => toggleTask(e, exId)} className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${dailyStatus[exId] ? 'bg-[#B4A284] text-white' : 'bg-[#F5EBE0] text-[#A0755B] hover:bg-[#B4A284]/30'}`}><CheckCircle2 className="w-5 h-5" /></button>
+                            <button onClick={(e) => toggleFocus(e, exId)} className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${focusStatus[exId] ? 'bg-[#D4A373] text-white' : 'bg-[#F5EBE0] text-[#A0755B] hover:bg-[#D4A373]/30 hover:text-[#6B4423]'}`}><Target className="w-5 h-5" /></button>
+                            {isExpanded ? <ChevronUp className="w-5 h-5 text-[#C97C5D]" /> : <ChevronDown className="w-5 h-5 text-[#D4A373]" />}
                           </div>
                         </div>
                         {isExpanded && (
                           <div className="px-5 pb-6 animate-in slide-in-from-top-3 duration-500">
-                            <div className="rounded-[2rem] overflow-hidden mb-5 bg-[#FAF9F6] border border-[#5C6B73]/10 shadow-inner">
+                            <div className="rounded-[2rem] overflow-hidden mb-5 bg-[#F5EBE0] border border-[#E8CFAB]/50 shadow-inner">
                               <img src={ex.img} alt={ex.name} className="w-full h-64 object-cover" onError={(e) => { e.target.src = 'https://placehold.co/600x400?text=' + ex.name.replace(/\s/g, '+'); }} />
                             </div>
                             <div className="space-y-5">
                               <div className="grid grid-cols-2 gap-3">
-                                <div className="bg-[#FAF9F6] p-4 rounded-[1.5rem] border border-[#5C6B73]/10"><p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Recupero:</p><p className="font-black text-[#E29587] text-lg">{ex.rest}s</p></div>
-                                <div className="bg-[#FAF9F6] p-4 rounded-[1.5rem] border border-[#5C6B73]/10"><p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Intensità:</p><p className="font-black text-slate-700 text-xs leading-tight">{ex.intensity}</p></div>
+                                <div className="bg-[#F5EBE0] p-4 rounded-[1.5rem] border border-[#E8CFAB]/50"><p className="text-[9px] font-black text-[#A0755B] uppercase tracking-widest mb-1">Recupero:</p><p className="font-black text-[#C97C5D] text-lg">{ex.rest}s</p></div>
+                                <div className="bg-[#F5EBE0] p-4 rounded-[1.5rem] border border-[#E8CFAB]/50"><p className="text-[9px] font-black text-[#A0755B] uppercase tracking-widest mb-1">Intensità:</p><p className="font-black text-[#6B4423] text-xs leading-tight">{ex.intensity}</p></div>
                               </div>
-                              {ex.rest > 0 && <RestTimer initialSeconds={ex.rest} colorClass="bg-[#F0F4F2]" accentColor="text-[#9CB4B4]" />}
-                              <div className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm"><p className="text-[10px] font-black text-[#B2AC88] uppercase mb-2 tracking-widest">Esecuzione tecnica:</p><p className="text-sm italic text-slate-600 leading-relaxed font-medium">{ex.exec}</p></div>
-                              <div className="bg-red-50/50 p-5 rounded-3xl border border-red-100 text-[#9E6257]"><p className="text-[10px] font-black text-red-400 uppercase flex items-center gap-2 mb-2 tracking-widest"><AlertTriangle className="w-3 h-3" /> Attenzione agli errori:</p><p className="text-sm leading-relaxed">{ex.errors}</p></div>
+                              {ex.rest > 0 && <RestTimer initialSeconds={ex.rest} colorClass="bg-[#F5E6D3]" accentColor="text-[#B4A284]" />}
+                              <div className="bg-[#FEFCF8] p-5 rounded-3xl border border-[#E8CFAB]/50 shadow-sm"><p className="text-[10px] font-black text-[#A0755B] uppercase mb-2 tracking-widest">Esecuzione tecnica:</p><p className="text-sm italic text-[#5D4E37] leading-relaxed font-medium">{ex.exec}</p></div>
+                              <div className="bg-[#FFEEE8] p-5 rounded-3xl border border-[#F5C8B8] text-[#8B4A3A]"><p className="text-[10px] font-black text-[#C97C5D] uppercase flex items-center gap-2 mb-2 tracking-widest"><AlertTriangle className="w-3 h-3" /> Attenzione agli errori:</p><p className="text-sm leading-relaxed">{ex.errors}</p></div>
                             </div>
                           </div>
                         )}
@@ -356,21 +356,21 @@ const App = () => {
 
         {activeTab === 'diario' && (
           <section className="space-y-6 animate-in slide-in-from-right-4 duration-700">
-            <div className="bg-white p-8 rounded-[2.5rem] border border-[#5C6B73]/10 shadow-sm">
+            <div className="bg-[#FEFCF8] p-8 rounded-[2.5rem] border border-[#E8CFAB]/50 shadow-md">
               <form onSubmit={addDiaryEntry} className="space-y-4">
-                <label className="block text-sm font-black text-[#5C6B73] px-1 uppercase tracking-wider text-center">Come ti senti oggi?</label>
-                <textarea value={newEntry} onChange={(e) => setNewEntry(e.target.value)} placeholder="Oggi mi sento..." className="w-full p-6 rounded-[2rem] bg-[#FAF9F6] border-2 border-[#F0F4F2] focus:border-[#D8E2DC] focus:ring-0 outline-none min-h-[160px] text-slate-700 font-medium placeholder:italic transition-all shadow-inner" />
-                <button type="submit" className="w-full py-5 bg-[#D8E2DC] hover:bg-[#CAD2CD] text-[#5C6B73] rounded-[2rem] font-black uppercase tracking-widest shadow-md hover:shadow-lg transition-all active:scale-[0.98]">Salva sensazione</button>
+                <label className="block text-sm font-black text-[#6B4423] px-1 uppercase tracking-wider text-center">Come ti senti oggi?</label>
+                <textarea value={newEntry} onChange={(e) => setNewEntry(e.target.value)} placeholder="Oggi mi sento..." className="w-full p-6 rounded-[2rem] bg-[#FFF8E7] border-2 border-[#E8CFAB] focus:border-[#D4A373] focus:ring-0 outline-none min-h-[160px] text-[#5D4E37] font-medium placeholder:italic transition-all shadow-inner" />
+                <button type="submit" className="w-full py-5 bg-gradient-to-r from-[#B4A284] to-[#A89168] hover:from-[#A89168] hover:to-[#9B845C] text-white rounded-[2rem] font-black uppercase tracking-widest shadow-md hover:shadow-lg transition-all active:scale-[0.98]">Salva sensazione</button>
               </form>
             </div>
             <div className="space-y-4 pt-2">
-              <h3 className="font-black text-[#B2AC88] px-2 flex items-center gap-3 uppercase tracking-widest text-xs"><BookOpen className="w-4 h-4" /> Storico note:</h3>
-              {entries.length === 0 ? <div className="text-center py-20 text-slate-300 italic font-medium bg-white rounded-[2rem] border border-dashed border-slate-100 uppercase text-[10px] tracking-[0.2em]">Sinfonia del silenzio.</div> : 
+              <h3 className="font-black text-[#A0755B] px-2 flex items-center gap-3 uppercase tracking-widest text-xs"><BookOpen className="w-4 h-4" /> Storico note:</h3>
+              {entries.length === 0 ? <div className="text-center py-20 text-[#D4A373] italic font-medium bg-[#FEFCF8] rounded-[2rem] border border-dashed border-[#E8CFAB] uppercase text-[10px] tracking-[0.2em]">Sinfonia del silenzio.</div> :
                 entries.map((entry) => (
-                  <div key={entry.id} className="bg-white p-6 rounded-[2rem] border border-[#5C6B73]/10 shadow-sm relative overflow-hidden group hover:border-[#D8E2DC] transition-colors">
-                    <div className="absolute left-0 top-0 bottom-0 w-2 bg-[#D8E2DC] group-hover:bg-[#CAD2CD] transition-colors" />
-                    <div className="text-[10px] font-black text-[#B2AC88] uppercase mb-3 tracking-[0.2em]">{entry.date === todayKey ? 'Oggi' : entry.date}</div>
-                    <p className="text-slate-700 text-[15px] whitespace-pre-wrap leading-relaxed font-medium italic">"{entry.text.charAt(0).toUpperCase() + entry.text.slice(1)}"</p>
+                  <div key={entry.id} className="bg-[#FEFCF8] p-6 rounded-[2rem] border border-[#E8CFAB]/50 shadow-sm relative overflow-hidden group hover:border-[#D4A373] transition-colors">
+                    <div className="absolute left-0 top-0 bottom-0 w-2 bg-[#D4A373] group-hover:bg-[#C97C5D] transition-colors" />
+                    <div className="text-[10px] font-black text-[#A0755B] uppercase mb-3 tracking-[0.2em]">{entry.date === todayKey ? 'Oggi' : entry.date}</div>
+                    <p className="text-[#5D4E37] text-[15px] whitespace-pre-wrap leading-relaxed font-medium italic">"{entry.text.charAt(0).toUpperCase() + entry.text.slice(1)}"</p>
                   </div>
                 ))
               }
@@ -380,7 +380,7 @@ const App = () => {
       </main>
 
       {/* Menu di navigazione fisso in basso */}
-      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 max-w-md w-full bg-white/95 backdrop-blur-xl border-t border-[#5C6B73]/10 shadow-lg z-30">
+      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 max-w-md w-full bg-gradient-to-t from-[#FEFCF8] to-[#FFF8F0]/95 backdrop-blur-xl border-t border-[#D4A373]/30 shadow-2xl z-30">
         <div className="flex justify-around items-center px-2 py-2 gap-1">
           {[
             { id: 'oggi', icon: CheckCircle2, label: 'oggi' },
@@ -391,7 +391,7 @@ const App = () => {
             const NavIcon = tab.icon;
             const isSos = tab.id === 'sos';
             return (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={activeTab === tab.id ? { backgroundColor: isSos ? '#E29587' : '#5C6B73' } : {}} className={`flex flex-col items-center gap-1 flex-1 py-2 rounded-xl transition-all duration-500 ${activeTab === tab.id ? 'text-white font-black shadow-md' : 'text-slate-300 font-medium hover:text-slate-500 bg-transparent'}`}>
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={activeTab === tab.id ? { backgroundColor: isSos ? '#C97C5D' : '#6B4423' } : {}} className={`flex flex-col items-center gap-1 flex-1 py-2 rounded-xl transition-all duration-500 ${activeTab === tab.id ? 'text-white font-black shadow-md' : 'text-[#D4A373] font-medium hover:text-[#6B4423] bg-transparent'}`}>
                 <NavIcon className="w-5 h-5" />
                 <span className="text-[8px] font-black uppercase tracking-tighter">{tab.label}</span>
               </button>
